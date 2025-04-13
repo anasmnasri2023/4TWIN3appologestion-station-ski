@@ -22,14 +22,21 @@ pipeline {
             steps {
                 script {
                     def scannerHome = tool 'scanner'
-                    withSonarQubeEnv {
-                        sh "${scannerHome}/bin/sonar-scanner"
+                    withSonarQubeEnv('sonarqube') {
+                        sh """
+                            ${scannerHome}/bin/sonar-scanner \
+                            -Dsonar.projectKey=nodeapp \
+                            -Dsonar.projectName=gestion-station-ski \
+                            -Dsonar.sources=src/main/java \
+                            -Dsonar.java.binaries=target/classes \
+                            -Dsonar.language=java
+                        """
                     }
                 }
             }
         }
 
-        stage('Build application') {
+        stage('Package') {
             steps {
                 script {
                     // Create final JAR file
