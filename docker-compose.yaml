@@ -1,17 +1,15 @@
-version: '3.8'
+version: "3.8"
 
 services:
   app:
     build: .
     image: stationski:1.0
     ports:
-      - "8089:8089"  # Changed to match your server.port
+      - "8089:8089"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/stationSki?createDatabaseIfNotExist=true
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
-      - SERVER_PORT=8089
-      - SERVER_SERVLET_CONTEXT-PATH=/api
     depends_on:
       db:
         condition: service_healthy
