@@ -1,48 +1,51 @@
 pipeline {
     agent any
 
-    stages {
-        stage('Checkout') {
-            steps {
-                // Clone your GitHub repository
-                checkout scm
-            }
-        }
-
-        stage('Build') {
-            steps {
-                script {
-                    // Install dependencies and build the package (skip tests for now)
-                    sh 'mvn clean package -DskipTests'
-                }
-            }
-        }
-
-
-
-        stage('Package') {
-            steps {
-                script {
-                    // Create final JAR file
-                    sh 'mvn package -DskipTests'
-                    // Archive the built JAR
-                    archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-                }
-            }
-        }
+    tools {
+        // Déclare l'outil SonarQube scanner installé sur Jenkins
+        // (le nom "scanner" doit correspondre à ce que tu as configuré dans Jenkins > Global Tool Configuration)
+        sonarScanner 'scanner'
     }
 
-    post {
-        always {
-            echo 'Pipeline completed'
-            // Clean up workspace if needed
-            cleanWs()
+    environment {
+        // Ajoute ici l'URL du serveur SonarQube si besoin, ou géré via Jenkins global config
+        // SONAR_HOST_URL = 'http://192.168.33.10:9000'
+    }
+
+    stages {
+        stage('Install dependencies') {
+            steps {
+                script {
+                    sh 'npm install'
+                }
+            }
         }
-        success {
-            echo 'Build succeeded!'
+
+        stage('Unit Test') {
+            steps {
+                script {
+                    sh 'npm test'
+                }
+            }
         }
-        failure {
-            echo 'Build failed!'
+
+        stage('Build application') {
+            steps {
+                script {
+                    sh 'npm run build-dev'
+                }
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    def scannerHome = tool name: 'scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                    withSonarQubeEnv('SonarQube') { // "SonarQube" = nom du serveur défini dans Jenkins
+                        sh "${scannerHome}/bin/sonar-scanner"
+                    }
+                }
+            }
         }
     }
 }
