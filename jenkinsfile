@@ -1,43 +1,39 @@
 pipeline {
     agent any
 
-    environment {
-        gitRepo = 'https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git'
-        gitBranch = 'instructor-wassim' 
-    }
-
     stages {
-        stage('Checkout Code') {
+        stage('Install dependencies') {
             steps {
-                git branch: "${gitBranch}", url: "${gitRepo}"
+                script {
+                    // For Maven
+                    sh 'mvn clean install -DskipTests'
+                    
+                    // If you're using Gradle instead, replace with:
+                    // sh './gradlew build -x test'
+                }
             }
         }
 
-        stage('Build Application') {
+        stage('Unit Test') {
             steps {
-                sh 'mvn clean compile'
+                script {
+                    sh 'mvn test'
+                    
+                    // For Gradle:
+                    // sh './gradlew test'
+                }
             }
         }
 
-        stage('Run Unit Tests') {
+        stage('Build application') {
             steps {
-                sh 'mvn test'
+                script {
+                    sh 'mvn package -DskipTests'
+                    
+                    // For Gradle:
+                    // sh './gradlew build -x test'
+                }
             }
-        }
-
-        stage('Package Application') {
-            steps {
-                sh 'mvn package'
-            }
-        }
-    }
-
-    post {
-        success {
-            echo "Build, test, and package successful"
-        }
-        failure {
-            echo "Build, test, or package failed"
         }
     }
 }
