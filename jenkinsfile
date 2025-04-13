@@ -1,50 +1,44 @@
 pipeline {
     agent any
 
+    environment {
+        MAVEN_HOME = '/opt/maven' // Adjust if Maven is installed elsewhere
+    }
+
     stages {
+
         stage('Git Checkout') {
             steps {
-                git branch: 'rehgistration', url: 'https://github.com/your-username/rehgistration.git'
+                git branch: 'ghassen', url: 'https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git
             }
         }
 
         stage('Maven Build') {
             steps {
-                sh 'mvn clean install -DskipTests'
+                sh 'mvn clean compile'
             }
         }
 
         stage('Run Tests') {
             steps {
-                script {
-                    try {
-                        echo "Running JUnit tests using external MySQL..."
-                        sh """
-                            mvn test \
-                            -Dspring.datasource.url=jdbc:mysql://192.168.77.129:3306/rehgistration?createDatabaseIfNotExist=true \
-                            -Dspring.datasource.username=root \
-                            -Dspring.datasource.password= \
-                            -Dspring.jpa.hibernate.ddl-auto=update
-                        """
-                    } catch (Exception e) {
-                        echo "JUnit tests failed: ${e}"
-                        currentBuild.result = 'UNSTABLE'
-                    }
-                }
-            }
-            post {
-                always {
-                    junit '**/target/surefire-reports/*.xml'
-                }
+                sh 'mvn test'
             }
         }
 
         stage('Package Application') {
             steps {
-                echo "Packaging the application..."
-                sh "mvn package -DskipTests"
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                sh 'mvn package'
             }
+        }
+
+    }
+
+    post {
+        success {
+            echo '✅ Build and tests completed successfully.'
+        }
+        failure {
+            echo '❌ Pipeline failed. Check logs for details.'
         }
     }
 }
