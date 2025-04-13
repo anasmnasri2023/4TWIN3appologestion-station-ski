@@ -48,8 +48,21 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    // Run tests after packaging
-                    sh 'mvn test'
+                    // Run tests with H2 database
+                    sh """
+                        mvn test \
+                        -Dspring.profiles.active=test \
+                        -Dspring.datasource.url=jdbc:h2:mem:testdb \
+                        -Dspring.datasource.username=sa \
+                        -Dspring.datasource.password= \
+                        -Dspring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+                    """
+
+                    // Publish test results
+                    junit '**/target/surefire-reports/*.xml'
+
+                    // Publish JaCoCo report
+                    jacoco()
                 }
             }
         }
