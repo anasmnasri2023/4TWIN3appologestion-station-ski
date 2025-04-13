@@ -4,7 +4,6 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Clone your GitHub repository
                 checkout scm
             }
         }
@@ -12,40 +11,58 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    // Install dependencies and build the package (skip tests for now)
-                    sh 'mvn clean package -DskipTests'
+                    sh 'mvn clean compile'
                 }
             }
         }
 
+        stage('Test') {
+            steps {
+                script {
+                    sh 'mvn test'
+                }
+            }
+        }
 
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    def scannerHome = tool 'sonar'
+                    withSonarQubeEnv('scanner') {
+                        sh """
+                        ${scannerHome}/bin/sonar-scanner \
+                        -Dsonar.projectKey=instructor-devops \
+                        -Dsonar.sources=. \
+                        -Dsonar.java.binaries=target/classes \
+                        -Dsonar.host.url=${SONAR_HOST_URL} \
+                        -Dsonar.token=${SONAR_AUTH_TOKEN}
+                        """
+                    }
+                }
+            }
+        }
 
         stage('Package') {
             steps {
                 script {
-                    // Create final JAR file
                     sh 'mvn package -DskipTests'
-                    // Archive the built JAR
                     archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
                 }
             }
         }
-        stage('SonarQube Analysis') {
-        steps{
-        script {
-        def scannerHome = tool 'scanner'
-        withSonarQubeEnv {
-        sh "${scannerHome}/bin/sonar-scanner"
-        }
-        }
-        }
+
+        stage('Building Docker images (springboot and mysql)') {
+            steps {
+                script {
+                    sh 'docker-compose build'
+                }
+            }
         }
     }
 
     post {
         always {
             echo 'Pipeline completed'
-            // Clean up workspace if needed
             cleanWs()
         }
         success {
