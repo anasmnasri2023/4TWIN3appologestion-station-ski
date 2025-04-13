@@ -12,7 +12,7 @@ pipeline {
             steps {
                 script {
                     def scannerHome = tool 'scanner'
-                    withSonarQubeEnv {
+                    withSonarQubeEnv('SonarQubeServer') { // Mets ici le nom configuré de ton SonarQube dans Jenkins
                         sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
@@ -22,7 +22,8 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh 'mvn clean compile'
+                    // Build the project (skip tests)
+                    sh 'mvn clean package -DskipTests'
                 }
             }
         }
@@ -30,6 +31,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
+                    // Run tests separately
                     sh 'mvn test'
                 }
             }
@@ -38,7 +40,9 @@ pipeline {
         stage('Package') {
             steps {
                 script {
-                    sh 'mvn package'
+                    // Create the final package again if needed
+                    sh 'mvn package -DskipTests'
+                    // Archive the generated artifacts
                     archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
                 }
             }
