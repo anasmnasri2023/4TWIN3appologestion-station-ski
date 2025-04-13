@@ -16,8 +16,8 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                // Use H2 for tests to avoid MySQL dependency
-                sh 'mvn test -Dspring.datasource.url=jdbc:h2:mem:testdb -Dspring.datasource.username=sa -Dspring.datasource.password='
+                // Use actual MySQL configuration for testing
+                sh 'mvn test -Dspring.datasource.url=jdbc:mysql://localhost:3306/stationSki -Dspring.datasource.username=root -Dspring.datasource.password=root'
             }
             post {
                 always {

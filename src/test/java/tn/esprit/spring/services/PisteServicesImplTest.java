@@ -6,6 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.spring.entities.Color;
 import tn.esprit.spring.entities.Piste;
 import tn.esprit.spring.repositories.IPisteRepository;
@@ -52,6 +54,8 @@ import static org.mockito.Mockito.*;
  *    - Type: Null Input Validation Test
  *    - Verifies null piste is not accepted
  */
+@SpringBootTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ExtendWith(MockitoExtension.class)
 public class PisteServicesImplTest {
 
