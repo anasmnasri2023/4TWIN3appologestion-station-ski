@@ -1,0 +1,170 @@
+Branch indexing
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/caches/git-48b03c4a5ee4151c515dd5c83b2a21f2/.git # timeout=10
+Setting origin to https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git
+ > git config remote.origin.url https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git # timeout=10
+Fetching origin...
+Fetching upstream changes from origin
+ > git --version # timeout=10
+ > git --version # 'git version 2.34.1'
+ > git config --get remote.origin.url # timeout=10
+ > git fetch --tags --force --progress -- origin +refs/heads/*:refs/remotes/origin/* # timeout=10
+Seen branch in repository origin/SarahHenia-4twin3-Apollo-Piste
+Seen branch in repository origin/anasmnasri4twin3appolo
+Seen branch in repository origin/ghassen
+Seen branch in repository origin/instructor-wassim
+Seen branch in repository origin/main
+Seen branch in repository origin/yasmineAttia-4twin3-Apollo
+Seen 6 remote branches
+Obtained jenkinsfile from b04edd7ee9559f25ceffc578d1e613fe1aec6286
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/devops-pipeline_ghassen
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+Cloning the remote Git repository
+Cloning with configured refspecs honoured and without tags
+Cloning repository https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git
+ > git init /var/lib/jenkins/workspace/devops-pipeline_ghassen # timeout=10
+Fetching upstream changes from https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.34.1'
+ > git fetch --no-tags --force --progress -- https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+Checking out Revision b04edd7ee9559f25ceffc578d1e613fe1aec6286 (ghassen)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f b04edd7ee9559f25ceffc578d1e613fe1aec6286 # timeout=10
+Commit message: "Ajout SonarQube config2"
+ > git rev-list --no-walk 22414cd9ac84445e87272e02f3d9fa2af5f9bd69 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/devops-pipeline_ghassen/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git # timeout=10
+Fetching without tags
+Fetching upstream changes from https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.34.1'
+ > git fetch --no-tags --force --progress -- https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+Checking out Revision b04edd7ee9559f25ceffc578d1e613fe1aec6286 (ghassen)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f b04edd7ee9559f25ceffc578d1e613fe1aec6286 # timeout=10
+Commit message: "Ajout SonarQube config2"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ mvn clean package -DskipTests
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m----------------< [0;36mtn.esprit.spring:gestion-station-ski[0;1m >----------------[m
+[[1;34mINFO[m] [1mBuilding gestion-station-ski 1.0[m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:3.1.0:clean[m [1m(default-clean)[m @ [36mgestion-station-ski[0;1m ---[m
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.2.0:resources[m [1m(default-resources)[m @ [36mgestion-station-ski[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered properties files.
+[[1;34mINFO[m] Copying 1 resource
+[[1;34mINFO[m] Copying 0 resource
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.1:compile[m [1m(default-compile)[m @ [36mgestion-station-ski[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 36 source files to /var/lib/jenkins/workspace/devops-pipeline_ghassen/target/classes
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.2.0:testResources[m [1m(default-testResources)[m @ [36mgestion-station-ski[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered properties files.
+[[1;34mINFO[m] skip non existing resourceDirectory /var/lib/jenkins/workspace/devops-pipeline_ghassen/src/test/resources
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.1:testCompile[m [1m(default-testCompile)[m @ [36mgestion-station-ski[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 2 source files to /var/lib/jenkins/workspace/devops-pipeline_ghassen/target/test-classes
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m--- [0;32mmaven-surefire-plugin:2.22.2:test[m [1m(default-test)[m @ [36mgestion-station-ski[0;1m ---[m
+[[1;34mINFO[m] Tests are skipped.
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m--- [0;32mmaven-jar-plugin:3.1.1:jar[m [1m(default-jar)[m @ [36mgestion-station-ski[0;1m ---[m
+[[1;34mINFO[m] Building jar: /var/lib/jenkins/workspace/devops-pipeline_ghassen/target/gestion-station-ski-1.0.jar
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m--- [0;32mspring-boot-maven-plugin:2.6.9:repackage[m [1m(repackage)[m @ [36mgestion-station-ski[0;1m ---[m
+[[1;34mINFO[m] Replacing main artifact with repackaged archive
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;32mBUILD SUCCESS[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  11.666 s
+[[1;34mINFO[m] Finished at: 2025-04-13T20:20:54Z
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (SonarQube Analysis)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] tool
+[Pipeline] withSonarQubeEnv
+Injecting SonarQube environment variables using the configuration: scanner
+[Pipeline] {
+[Pipeline] sh
++ /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/scanner/bin/sonar-scanner
+20:20:56.894 INFO  Scanner configuration file: /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/scanner/conf/sonar-scanner.properties
+20:20:56.901 INFO  Project root configuration file: /var/lib/jenkins/workspace/devops-pipeline_ghassen/sonar-project.properties
+20:20:56.948 INFO  SonarScanner CLI 7.1.0.4889
+20:20:56.965 INFO  Java 17.0.14 Ubuntu (64-bit)
+20:20:56.966 INFO  Linux 5.15.0-133-generic amd64
+20:20:57.057 INFO  User cache: /var/lib/jenkins/.sonar/cache
+20:20:59.060 ERROR Failed to query server version: Call to URL [http://192.168.33.10:9000/api/v2/analysis/version] failed: Unexpected char 0xe9 at 10 in Authorization value
+20:20:59.061 INFO  EXECUTION FAILURE
+20:20:59.062 INFO  Total time: 2.247s
+[Pipeline] }
+WARN: Unable to locate 'report-task.txt' in the workspace. Did the SonarScanner succeed?
+[Pipeline] // withSonarQubeEnv
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Package)
+Stage "Package" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+Pipeline completed
+[Pipeline] cleanWs
+[WS-CLEANUP] Deleting project workspace...
+[WS-CLEANUP] Deferred wipeout is used...
+[WS-CLEANUP] done
+[Pipeline] echo
+Build failed!
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 1
+Finished: FAILURE

@@ -20,8 +20,17 @@ pipeline {
             steps {
                 script {
                     def scannerHome = tool 'scanner'
-                    withSonarQubeEnv {
-                        sh "${scannerHome}/bin/sonar-scanner"
+                    withSonarQubeEnv('scanner') {  // Match the name you configured in Jenkins
+                        sh """
+                            ${scannerHome}/bin/sonar-scanner \\
+                            -Dsonar.host.url=http://192.168.33.10:9000 \\
+                            -Dsonar.login=${env.SONAR_AUTH_TOKEN} \\
+                            -Dsonar.projectKey=nodeapp \\
+                            -Dsonar.projectName=gestion-station-ski \\
+                            -Dsonar.sources=src/main/java \\
+                            -Dsonar.java.binaries=target/classes \\
+                            -Dsonar.sourceEncoding=UTF-8
+                        """
                     }
                 }
             }
