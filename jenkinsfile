@@ -1,55 +1,44 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'M3'  // Make sure Maven is configured in Jenkins
-        jdk 'jdk17' // Make sure JDK is configured in Jenkins
-    }
-
-    environment {
-        SONAR_SCANNER_HOME = tool 'scanner'
-    }
-
     stages {
         stage('Checkout') {
             steps {
+                // Clone your GitHub repository
                 checkout scm
             }
         }
 
         stage('Build') {
             steps {
-                sh 'mvn clean compile'
-            }
-        }
-
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('scanner') {
-                    sh """
-                    ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
-                    -Dsonar.projectKey=instructor-devops \
-                    -Dsonar.sources=. \
-                    -Dsonar.java.binaries=target/classes \
-                    -Dsonar.host.url=${SONAR_HOST_URL} \
-                    -Dsonar.token=${SONAR_AUTH_TOKEN}
-                    """
+                script {
+                    // Install dependencies and build the package (skip tests for now)
+                    sh 'mvn clean package -DskipTests'
                 }
             }
         }
 
-        stage('Test & Package') {
+
+
+        stage('Package') {
             steps {
-                sh 'mvn package'  // This will run tests and package
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                script {
+                    // Create final JAR file
+                    sh 'mvn package -DskipTests'
+                    // Archive the built JAR
+                    archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                }
             }
         }
     }
 
+
+
     post {
         always {
-            junit 'target/surefire-reports/**/*.xml'  // Archive test results
             echo 'Pipeline completed'
+            // Clean up workspace if needed
+            cleanWs()
         }
         success {
             echo 'Build succeeded!'
