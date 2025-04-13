@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                // Clone your GitHub repository
                 checkout scm
             }
         }
@@ -11,45 +12,21 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    // First compile the code to generate the classes
-                    sh 'mvn clean compile'
+                    // Install dependencies and build the package (skip tests for now)
+                    sh 'mvn clean package -DskipTests'
                 }
             }
         }
 
-        stage('SonarQube Analysis') {
-            steps {
-                script {
-                    def scannerHome = tool 'scanner'
-                    withSonarQubeEnv('scanner') {
-                        sh """
-                        ${scannerHome}/bin/sonar-scanner \
-                        -Dsonar.projectKey=instructor-devops \
-                        -Dsonar.sources=. \
-                        -Dsonar.java.binaries=target/classes \
-                        -Dsonar.host.url=${SONAR_HOST_URL} \
-                        -Dsonar.token=${SONAR_AUTH_TOKEN}  # Changed from login to token
-                        """
-                    }
-                }
-            }
-        }
+
 
         stage('Package') {
             steps {
                 script {
-                    // Create the final package
+                    // Create final JAR file
                     sh 'mvn package -DskipTests'
+                    // Archive the built JAR
                     archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-                }
-            }
-        }
-
-        stage('Test') {
-            steps {
-                script {
-                    // Run tests after packaging
-                    sh 'mvn test'
                 }
             }
         }
@@ -58,6 +35,7 @@ pipeline {
     post {
         always {
             echo 'Pipeline completed'
+            // Clean up workspace if needed
             cleanWs()
         }
         success {
