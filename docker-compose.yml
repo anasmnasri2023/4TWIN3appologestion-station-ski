@@ -1,15 +1,15 @@
+version: '3.8'
+
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
     image: stationski:1.0
     ports:
       - "8089:8089"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/stationSki?createDatabaseIfNotExist=true
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/stationSki?useSSL=false&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
     depends_on:
       db:
         condition: service_healthy
@@ -18,17 +18,18 @@ services:
     image: mysql:8.0
     container_name: stationski-db
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=stationSki
+      MYSQL_ROOT_PASSWORD: root  # Only root user needed
+      MYSQL_DATABASE: stationSki  # Auto-creates DB
     ports:
-      - "3307:3306" # Host:3307 → Container:3306
+      - "3307:3306" # Expose MySQL on port 3307
     volumes:
-      - db-data:/var/lib/mysql
+      - db-data:/var/lib/mysql  # Data persistence
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      test: ["CMD-SHELL", "mysqladmin ping -uroot -proot || exit 1"]
       interval: 5s
       timeout: 10s
-      retries: 10
+      retries: 20
+    command: --default-authentication-plugin=mysql_native_password
 
   prometheus:
     image: prom/prometheus
@@ -46,9 +47,12 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    volumes:
+      - grafana-data:/var/lib/grafana
     depends_on:
       - prometheus
 
 volumes:
   db-data:
+  grafana-data:

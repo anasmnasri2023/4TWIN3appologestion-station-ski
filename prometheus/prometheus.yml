@@ -1,0 +1,13 @@
+# ./prometheus/prometheus.yml
+global:
+  scrape_interval: 15s  # How often to scrape metrics
+
+scrape_configs:
+  - job_name: 'spring-app'  # Your Spring Boot app
+    metrics_path: '/actuator/prometheus'  # Default Prometheus endpoint in Spring
+    static_configs:
+      - targets: ['app:8089']  # Matches your app service name in docker-compose
+
+  - job_name: 'mysql'  # Optional: MySQL metrics if you set up exporters
+    static_configs:
+      - targets: ['db:9104']  # Requires mysqld-exporter (advanced)
