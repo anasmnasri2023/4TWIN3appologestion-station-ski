@@ -2,28 +2,45 @@ pipeline {
     agent any
 
     stages {
-        stage('Install dependencies') {
+        stage('Checkout') {
+            steps {
+                checkout scm  // Explicit checkout step
+            }
+        }
+
+        stage('Build and Test') {
             steps {
                 script {
-                    sh 'mvn clean install -DskipTests' 
+                    // This will run both unit tests and build the package
+                    sh 'mvn clean package'
+                }
+            }
+            post {
+                always {
+                    junit '**/target/surefire-reports/*.xml'  // Archive test results
                 }
             }
         }
 
-        stage('Unit Test') {
+        stage('Install') {
             steps {
                 script {
-                    sh 'mvn test'
+                    // Only needed if you want to install to local repo
+                    sh 'mvn install -DskipTests'
                 }
             }
         }
+    }
 
-        stage('Build application') {
-            steps {
-                script {
-                    sh 'mvn package -DskipTests'
-                }
-            }
+    post {
+        always {
+            archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+        }
+        success {
+            echo 'Build succeeded!'
+        }
+        failure {
+            echo 'Build failed!'
         }
     }
 }
