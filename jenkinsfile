@@ -8,6 +8,15 @@ pipeline {
             }
         }
 
+        stage('Build') {
+            steps {
+                script {
+                    // First compile the code to generate the classes
+                    sh 'mvn clean compile'
+                }
+            }
+        }
+
         stage('SonarQube Analysis') {
             steps {
                 script {
@@ -19,27 +28,9 @@ pipeline {
                         -Dsonar.sources=. \
                         -Dsonar.java.binaries=target/classes \
                         -Dsonar.host.url=${SONAR_HOST_URL} \
-                        -Dsonar.login=${SONAR_AUTH_TOKEN}
+                        -Dsonar.token=${SONAR_AUTH_TOKEN}  # Changed from login to token
                         """
                     }
-                }
-            }
-        }
-
-        stage('Build') {
-            steps {
-                script {
-                    // Build the project (skip tests)
-                    sh 'mvn clean package -DskipTests'
-                }
-            }
-        }
-
-        stage('Test') {
-            steps {
-                script {
-                    // Run tests separately
-                    sh 'mvn test'
                 }
             }
         }
@@ -47,10 +38,18 @@ pipeline {
         stage('Package') {
             steps {
                 script {
-                    // Create the final package again if needed
+                    // Create the final package
                     sh 'mvn package -DskipTests'
-                    // Archive the generated artifacts
                     archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                script {
+                    // Run tests after packaging
+                    sh 'mvn test'
                 }
             }
         }
