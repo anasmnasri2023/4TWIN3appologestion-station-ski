@@ -34,14 +34,8 @@ pipeline {
             steps {
                 script {
                     def scannerHome = tool 'scanner'
-                    withSonarQubeEnv('scanner') {
-                        sh """
-                        ${scannerHome}/bin/sonar-scanner \
-                        -Dsonar.projectKey=devopsYasminee \
-                        -Dsonar.sources=. \
-                        -Dsonar.host.url=${SONAR_HOST_URL} \
-                        -Dsonar.token=${SONAR_AUTH_TOKEN}  // Remarque l'ajout de la variable ${SONAR_AUTH_TOKEN}
-                        """
+                    withSonarQubeEnv {
+                        sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
             }
