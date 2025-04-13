@@ -1,13 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        SONARQUBE_SERVER = 'http://192.168.77.129:9000'
-        SONARQUBE_TOKEN = credentials('scanner')  // Jenkins credential ID for SonarQube
-        registryCredentials = "nexus"             // Nexus Docker registry credential ID
-        registry = "192.168.77.129:8083"          // Nexus Docker registry URL
-    }
-
     stages {
         stage('Git Checkout') {
             steps {
@@ -46,24 +39,6 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
-            steps {
-                script {
-                    try {
-                        sh """
-                            mvn sonar:sonar \
-                            -Dsonar.projectKey=tn.esprit.rehgistration \
-                            -Dsonar.host.url=${SONARQUBE_SERVER} \
-                            -Dsonar.login=${SONARQUBE_TOKEN}
-                        """
-                    } catch (Exception e) {
-                        echo "SonarQube analysis failed: ${e}"
-                        currentBuild.result = 'UNSTABLE'
-                    }
-                }
-            }
-        }
-
         stage('Package Application') {
             steps {
                 echo "Packaging the application..."
@@ -71,35 +46,6 @@ pipeline {
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
         }
-
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    echo "Building Docker image..."
-                    sh "docker build -t ${registry}/rehgistration:${BUILD_NUMBER} ."
-                    sh "docker tag ${registry}/rehgistration:${BUILD_NUMBER} ${registry}/rehgistration:latest"
-                }
-            }
-        }
-
-        stage('Deploy to Nexus') {
-            steps {
-                script {
-                    docker.withRegistry("http://${registry}", registryCredentials) {
-                        sh "docker push ${registry}/rehgistration:${BUILD_NUMBER}"
-                        sh "docker push ${registry}/rehgistration:latest"
-                    }
-                }
-            }
-        }
-
-        stage('Start Monitoring Stack') {
-            steps {
-                script {
-                    echo "Starting monitoring services..."
-                    sh 'docker-compose -f docker-compose.yml up -d prometheus grafana || echo "Monitoring stack start failed"'
-                }
-            }
-        }
     }
 }
+
