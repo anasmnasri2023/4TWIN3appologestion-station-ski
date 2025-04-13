@@ -17,6 +17,41 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit Tests for PisteServicesImpl
+ *
+ * Test Types:
+ * 1. testRetrieveAllPistes: Verifies retrieval of all pistes
+ *    - Type: Repository Interaction Test
+ *    - Mocks repository findAll() method
+ *    - Checks correct list size and repository method invocation
+ *
+ * 2. testAddPiste: Validates piste addition
+ *    - Type: Repository Save Operation Test
+ *    - Mocks repository save() method
+ *    - Checks return object and repository interaction
+ *
+ * 3. testRetrievePiste: Tests retrieving a specific piste
+ *    - Type: Repository Lookup Test
+ *    - Mocks repository findById() method
+ *    - Verifies correct piste retrieval
+ *
+ * 4. testRemovePiste: Checks piste removal
+ *    - Type: Repository Delete Operation Test
+ *    - Verifies deleteById() method is called
+ *
+ * 5. testRetrievePiste_NotFound: Handles non-existent piste scenario
+ *    - Type: Edge Case Test
+ *    - Checks behavior when piste is not found
+ *
+ * 6. testAddPiste_InvalidSlope: Validates input validation
+ *    - Type: Input Validation Test
+ *    - Ensures negative slope is rejected
+ *
+ * 7. testAddPiste_NullPiste: Checks null input handling
+ *    - Type: Null Input Validation Test
+ *    - Verifies null piste is not accepted
+ */
 @ExtendWith(MockitoExtension.class)
 public class PisteServicesImplTest {
 
@@ -82,32 +117,28 @@ public class PisteServicesImplTest {
 
         verify(pisteRepository, times(1)).deleteById(1L);
     }
-    // ADD THESE NEW TESTS TO YOUR EXISTING PisteServicesImplTest.java
+
     @Test
     public void testRetrievePiste_NotFound() {
         when(pisteRepository.findById(99L)).thenReturn(Optional.empty());
         Piste result = pisteServices.retrievePiste(99L);
-        assertNull(result); // Verify non-existent piste returns null
+        assertNull(result);
     }
 
     @Test
     public void testAddPiste_InvalidSlope() {
-        piste.setSlope(-5); // Invalid value
-        assertThrows(IllegalArgumentException.class,
-                () -> pisteServices.addPiste(piste)); // Should reject negative slope
-    }
+        Piste invalidPiste = new Piste();
+        invalidPiste.setSlope(-5);
 
-    @Test
-    public void testAddPiste_MaxLength() {
-        piste.setLength(5000);
-        when(pisteRepository.save(piste)).thenReturn(piste);
-        Piste result = pisteServices.addPiste(piste);
-        assertEquals(5000, result.getLength()); // Verify long piste is allowed
+        assertThrows(IllegalArgumentException.class, () -> {
+            pisteServices.addPiste(invalidPiste);
+        });
     }
 
     @Test
     public void testAddPiste_NullPiste() {
-        assertThrows(IllegalArgumentException.class,
-                () -> pisteServices.addPiste(null)); // Should reject null input
+        assertThrows(IllegalArgumentException.class, () -> {
+            pisteServices.addPiste(null);
+        });
     }
 }

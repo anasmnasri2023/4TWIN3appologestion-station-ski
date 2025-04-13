@@ -6,9 +6,13 @@ import tn.esprit.spring.entities.Piste;
 import tn.esprit.spring.repositories.IPisteRepository;
 
 import java.util.List;
+
+/**
+ * Service layer for managing Piste entities, providing CRUD operations with input validation.
+ */
 @AllArgsConstructor
 @Service
-public class PisteServicesImpl implements  IPisteServices{
+public class PisteServicesImpl implements IPisteServices {
 
     private IPisteRepository pisteRepository;
 
@@ -19,6 +23,10 @@ public class PisteServicesImpl implements  IPisteServices{
 
     @Override
     public Piste addPiste(Piste piste) {
+        // Validate input to ensure piste is not null and has valid slope
+        if (piste == null || piste.getSlope() < 0) {
+            throw new IllegalArgumentException("Piste cannot be null and slope must be non-negative");
+        }
         return pisteRepository.save(piste);
     }
 
