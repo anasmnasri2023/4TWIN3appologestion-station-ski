@@ -22329,3 +22329,1147 @@ java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" bec
 	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
 
 2025-04-13 20:01:00.005  INFO 29328 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:01:00.006  INFO 29328 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:01:30.002  INFO 29328 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:01:30.005 ERROR 29328 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:01:30.005  INFO 29328 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:01:30.006  INFO 29328 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:02:00.001  INFO 29328 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:02:00.004 ERROR 29328 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor441.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:02:00.004  INFO 29328 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:02:00.005  INFO 29328 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:02:30.002  INFO 29328 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:02:30.002  INFO 29328 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:02:30.002  INFO 29328 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:02:30.004 ERROR 29328 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor441.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:03:00.002  INFO 29328 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:03:00.006 ERROR 29328 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor441.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:03:00.006  INFO 29328 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:03:00.006  INFO 29328 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:03:30.001  INFO 29328 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:03:30.003 ERROR 29328 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor441.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:03:30.004  INFO 29328 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:03:30.004  INFO 29328 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:04:00.002  INFO 29328 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:04:00.005 ERROR 29328 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor441.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:04:00.005  INFO 29328 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:04:00.006  INFO 29328 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:04:13.075  INFO 29328 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-04-13 20:04:13.076  INFO 29328 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-17 - Shutdown initiated...
+2025-04-13 20:04:13.078  INFO 29328 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-17 - Shutdown completed.
+2025-04-13 20:04:16.127  INFO 17852 --- [restartedMain] t.e.spring.GestionStationSkiApplication  : Starting GestionStationSkiApplication using Java 17.0.9 on DESKTOP-OJBAK3T with PID 17852 (C:\Users\user\Desktop\gestion-station-ski\target\classes started by user in C:\Users\user\Desktop\gestion-station-ski)
+2025-04-13 20:04:16.128  INFO 17852 --- [restartedMain] t.e.spring.GestionStationSkiApplication  : No active profile set, falling back to 1 default profile: "default"
+2025-04-13 20:04:16.169  INFO 17852 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-04-13 20:04:16.169  INFO 17852 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-04-13 20:04:16.803  INFO 17852 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-04-13 20:04:16.869  INFO 17852 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 57 ms. Found 6 JPA repository interfaces.
+2025-04-13 20:04:17.401  INFO 17852 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8089 (http)
+2025-04-13 20:04:17.409  INFO 17852 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-04-13 20:04:17.409  INFO 17852 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.64]
+2025-04-13 20:04:17.483  INFO 17852 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/api]    : Initializing Spring embedded WebApplicationContext
+2025-04-13 20:04:17.483  INFO 17852 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1313 ms
+2025-04-13 20:04:17.670  INFO 17852 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-04-13 20:04:17.723  INFO 17852 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.9.Final
+2025-04-13 20:04:17.875  INFO 17852 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2025-04-13 20:04:17.969  INFO 17852 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-04-13 20:04:18.100  INFO 17852 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-04-13 20:04:18.119  INFO 17852 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2025-04-13 20:04:18.796  INFO 17852 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-04-13 20:04:18.802  INFO 17852 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-04-13 20:04:19.393  WARN 17852 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-04-13 20:04:20.056  INFO 17852 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-04-13 20:04:20.093  INFO 17852 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8089 (http) with context path '/api'
+2025-04-13 20:04:20.108  INFO 17852 --- [restartedMain] t.e.spring.GestionStationSkiApplication  : Started GestionStationSkiApplication in 4.365 seconds (JVM running for 5.352)
+2025-04-13 20:04:30.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:04:30.028  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:04:30.029  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:04:30.037 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:05:00.000  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:05:00.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:05:00.003  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:05:00.008 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:05:30.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:05:30.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:05:30.003  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:05:30.006 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:06:00.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:06:00.005  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:06:00.006  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:06:00.011 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:06:30.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:06:30.003  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:06:30.003  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:06:30.006 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:07:00.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:07:00.009 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:07:00.010  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:07:00.011  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:07:30.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:07:30.006 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:07:30.006  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:07:30.007  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:08:00.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:08:00.006 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:08:00.007  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:08:00.009  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:08:30.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:08:30.006 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:08:30.006  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:08:30.007  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:09:00.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:09:00.007 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:09:00.007  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:09:00.008  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:09:30.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:09:30.003  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:09:30.003  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:09:30.007 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:10:00.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:10:00.008 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:10:00.009  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:10:00.011  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:10:30.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:10:30.003  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:10:30.003  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:10:30.007 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:11:00.000  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:11:00.003  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:11:00.003  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:11:00.009 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:11:30.000  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:11:30.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:11:30.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:11:30.005 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:12:00.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:12:00.007 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:12:00.008  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:12:00.009  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:12:30.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:12:30.006 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:12:30.006  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:12:30.008  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:13:00.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:13:00.003  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:13:00.004  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:13:00.008 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:13:30.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:13:30.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:13:30.003  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:13:30.007 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:14:00.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:14:00.009 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:14:00.009  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:14:00.011  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:14:30.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:14:30.005 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:14:30.005  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:14:30.006  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:15:00.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:15:00.013 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:15:00.014  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:15:00.015  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:15:30.000  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:15:30.003  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:15:30.004  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:15:30.011 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:16:00.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:16:00.004  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:16:00.005  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:16:00.013 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:16:30.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:16:30.005  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:16:30.005  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:16:30.010 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:17:00.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:17:00.006 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:17:00.006  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:17:00.008  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:17:30.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:17:30.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:17:30.003  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:17:30.009 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:18:00.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:18:00.004  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:18:00.004  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:18:00.007 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:18:30.000  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:18:30.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:18:30.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:18:30.007 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:19:00.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:19:00.006 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:19:00.007  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:19:00.009  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:19:30.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:19:30.004  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:19:30.004  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:19:30.011 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:20:00.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:20:00.006 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:20:00.007  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:20:00.009  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:20:30.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:20:30.005 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:20:30.005  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:20:30.006  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:21:00.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:21:00.003  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:21:00.003  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:21:00.008 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:21:30.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:21:30.009 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:21:30.010  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:21:30.011  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:22:00.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:22:00.010 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:22:00.010  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:22:00.012  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:22:30.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:22:30.003  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:22:30.003  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:22:30.006 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:23:00.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:23:00.003  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:23:00.003  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:23:00.007 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:23:30.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:23:30.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:23:30.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:23:30.005 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:24:00.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:24:00.007 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:24:00.008  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:24:00.009  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:24:30.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:24:30.006 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:24:30.007  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:24:30.008  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:25:00.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:25:00.003  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:25:00.004  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:25:00.009 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:25:30.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:25:30.003  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:25:30.003  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:25:30.007 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:26:00.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:26:00.006 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:26:00.006  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:26:00.007  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:26:30.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:26:30.006 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:26:30.006  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:26:30.007  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:27:00.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:27:00.004  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:27:00.004  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:27:00.010 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:27:30.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:27:30.006 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:27:30.006  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:27:30.007  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:28:00.001  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:28:00.003  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process
+2025-04-13 20:28:00.004  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:28:00.007 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:28:30.002  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Calculating monthly recurring revenue
+2025-04-13 20:28:30.006 ERROR 17852 --- [scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.NullPointerException: Cannot invoke "java.lang.Float.floatValue()" because the return value of "tn.esprit.spring.repositories.ISubscriptionRepository.recurringRevenueByTypeSubEquals(tn.esprit.spring.entities.TypeSubscription)" is null
+	at tn.esprit.spring.services.SubscriptionServicesImpl.showMonthlyRecurringRevenue(SubscriptionServicesImpl.java:91) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.21.jar:5.3.21]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.21.jar:5.3.21]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-04-13 20:28:30.007  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Starting subscription retrieval process
+2025-04-13 20:28:30.007  INFO 17852 --- [scheduling-1] t.e.s.services.SubscriptionServicesImpl  : Finished subscription retrieval process

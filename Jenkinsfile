@@ -1,51 +1,48 @@
 pipeline {
     agent any
 
-    tools {
-        // Déclare l'outil SonarQube scanner installé sur Jenkins
-        // (le nom "scanner" doit correspondre à ce que tu as configuré dans Jenkins > Global Tool Configuration)
-        sonarScanner 'scanner'
-    }
-
-    environment {
-        // Ajoute ici l'URL du serveur SonarQube si besoin, ou géré via Jenkins global config
-        // SONAR_HOST_URL = 'http://192.168.33.10:9000'
-    }
-
     stages {
-        stage('Install dependencies') {
+        stage('Checkout') {
+            steps {
+                // Clone your GitHub repository
+                checkout scm
+            }
+        }
+
+        stage('Build') {
             steps {
                 script {
-                    sh 'npm install'
+                    // Install dependencies and build the package (skip tests for now)
+                    sh 'mvn clean package -DskipTests'
                 }
             }
         }
 
-        stage('Unit Test') {
+
+
+        stage('Package') {
             steps {
                 script {
-                    sh 'npm test'
+                    // Create final JAR file
+                    sh 'mvn package -DskipTests'
+                    // Archive the built JAR
+                    archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
                 }
             }
         }
+    }
 
-        stage('Build application') {
-            steps {
-                script {
-                    sh 'npm run build-dev'
-                }
-            }
+    post {
+        always {
+            echo 'Pipeline completed'
+            // Clean up workspace if needed
+            cleanWs()
         }
-
-        stage('SonarQube Analysis') {
-            steps {
-                script {
-                    def scannerHome = tool name: 'scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-                    withSonarQubeEnv('SonarQube') { // "SonarQube" = nom du serveur défini dans Jenkins
-                        sh "${scannerHome}/bin/sonar-scanner"
-                    }
-                }
-            }
+        success {
+            echo 'Build succeeded!'
+        }
+        failure {
+            echo 'Build failed!'
         }
     }
 }
