@@ -1,19 +1,28 @@
 pipeline {
     agent any
 
+    tools {
+        // Configure these tool names in Jenkins Global Tool Configuration
+        maven 'M3'          // Maven installation
+        jdk 'jdk17'        // Java JDK (adjust version as needed)
+    }
+
     environment {
-        MAVEN_HOME = '/opt/maven' // Adjust if Maven is installed elsewhere
+        // Optional: Set these if you need specific versions
+        JAVA_HOME = "${tool 'jdk17'}"
+        MAVEN_HOME = "${tool 'M3'}"
     }
 
     stages {
-
-        stage('Git Checkout') {
+        stage('Checkout Code') {
             steps {
-                git branch: 'ghassen', url: 'https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git'
+                git branch: 'ghassen', 
+                     url: 'https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git',
+                     credentialsId: '' // Add credentials ID if needed
             }
         }
 
-        stage('Maven Build') {
+        stage('Build') {
             steps {
                 sh 'mvn clean compile'
             }
@@ -23,23 +32,35 @@ pipeline {
             steps {
                 sh 'mvn test'
             }
-        }
-
-        stage('Package Application') {
-            steps {
-                sh 'mvn package'
+            post {
+                always {
+                    junit '**/target/surefire-reports/*.xml' // Archive test results
+                }
             }
         }
 
+        stage('Package') {
+            steps {
+                sh 'mvn package -DskipTests' // Skip tests if they were already run
+            }
+            post {
+                success {
+                    archiveArtifacts 'target/*.jar' // Save the built package
+                }
+            }
+        }
     }
 
     post {
+        always {
+            cleanWs() // Clean up workspace when done
+        }
         success {
-            echo '✅ Build and tests completed successfully.'
+            echo '✅ Pipeline succeeded!'
         }
         failure {
-            echo '❌ Pipeline failed. Check logs for details.'
+            echo '❌ Pipeline failed! Check logs for details.'
+            // Optional: Send notification (email, Slack, etc.)
         }
     }
 }
-
