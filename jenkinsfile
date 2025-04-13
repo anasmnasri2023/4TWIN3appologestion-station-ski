@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+
+    environment {
+        gitRepo = 'https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git'
+        gitBranch = 'instructor-wassim' 
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: "${gitBranch}", url: "${gitRepo}"
+            }
+        }
+
+        stage('Build Application') {
+            steps {
+                sh 'mvn clean compile'
+            }
+        }
+
+        stage('Run Unit Tests') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+
+        stage('Package Application') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Build, test, and package successful"
+        }
+        failure {
+            echo "Build, test, or package failed"
+        }
+    }
+}
