@@ -49,22 +49,22 @@ pipeline {
                     // Build Docker images
                     sh 'docker-compose build'
 
-                    // Start MySQL and wait for it to be ready
-                    sh 'docker-compose up -d db'
+                    // Start MySQL service and wait for it to be ready
+                    sh 'docker-compose up -d stationski-db'
                     sh '''
                         while ! docker exec stationski-db mysqladmin ping -uroot -proot --silent; do
-                            echo "Waiting for MySQL..."
+                            echo "Waiting for MySQL to be ready..."
                             sleep 5
                         done
                     '''
 
-                    // Deploy to Nexus
+                    // Push Docker image to Nexus registry
                     docker.withRegistry("http://${DOCKER_REGISTRY}", "nexus") {
                         sh "docker tag ${IMAGE_NAME}:${TAG} ${DOCKER_REGISTRY}/${IMAGE_NAME}:${TAG}"
                         sh "docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}:${TAG}"
                     }
 
-                    // Start the full application
+                    // Start the full application (all services)
                     sh 'docker-compose up -d'
                 }
             }

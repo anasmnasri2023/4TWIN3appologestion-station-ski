@@ -1,63 +1,69 @@
 version: '3.8'
 
 services:
-  app:
-    build: .
-    image: stationski:1.0
-    ports:
-      - "8089:8089"
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/stationSki?useSSL=false&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-    depends_on:
-      db:
-        condition: service_healthy
-    restart: unless-stopped
-
-  db:
+  stationski-db:
     image: mysql:8.0
     container_name: stationski-db
+    restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: "sarah2025"
       MYSQL_DATABASE: stationSki
     ports:
-      - "3307:3306"  # Still using 3307 to avoid host conflicts
+      - "3307:3306"
     volumes:
-      - db-data:/var/lib/mysql  # Only keeping data persistence
+      - db_data:/var/lib/mysql
+    networks:
+      - stationski-net
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
-      interval: 5s
-      timeout: 10s
-      retries: 20
-    command:
-      --default-authentication-plugin=mysql_native_password
-      --character-set-server=utf8mb4
-      --collation-server=utf8mb4_unicode_ci
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-psarah2025"]
+      interval: 20s
+      timeout: 20s
+      retries: 40
+      start_period: 180s
+
+  stationski-app:
+    build: .
+    image: stationski-app
+    container_name: stationski-app
+    restart: always
+    ports:
+      - "8089:8089"
+    depends_on:
+      stationski-db:
+        condition: service_healthy
+    networks:
+      - stationski-net
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
 
   prometheus:
     image: prom/prometheus
     container_name: prometheus
+    restart: always
     ports:
       - "9090:9090"
     volumes:
-      - ./prometheus:/etc/prometheus
-    command:
-      - "--config.file=/etc/prometheus/prometheus.yml"
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - stationski-net
 
   grafana:
     image: grafana/grafana
     container_name: grafana
+    restart: always
+    depends_on:
+      stationski-db:
+        condition: service_healthy
     ports:
       - "3000:3000"
-    environment:
-      GF_SECURITY_ADMIN_PASSWORD: admin
     volumes:
-      - grafana-data:/var/lib/grafana
-    depends_on:
-      - prometheus
+      - grafana_data:/var/lib/grafana
+    networks:
+      - stationski-net
 
 volumes:
-  db-data:
-  grafana-data:
+  db_data:
+  grafana_data:
+
+networks:
+  stationski-net:
