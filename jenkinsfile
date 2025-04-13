@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+
+    tools {
+        maven 'Maven 3.6.3'
+        jdk 'JAVA_HOME' 
+    }
+
+    environment {
+        JAVA_HOME = '/usr/lib/jvm/java-17-openjdk-amd64'
+        PATH = "${JAVA_HOME}/bin:${env.PATH}"
+    }
+
+    stages {
+        stage('Debug Environment') {
+            steps {
+                // Print environment variables to diagnose issues
+                sh 'echo "JAVA_HOME: $JAVA_HOME"'
+                sh 'echo "PATH: $PATH"'
+                sh 'java -version || true'
+                sh 'mvn -version || true'
+                sh 'ls -la $JAVA_HOME/bin || true'
+            }
+        }
+
+        stage('Cloner le dépôt') {
+            steps {
+                git branch: 'YasmineAttia-4twin3-Apollo', url: 'https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'mvn clean package -DskipTests'
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Build completed'
+        }
+    }
+}
