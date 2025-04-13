@@ -72,7 +72,7 @@ public class SubscriptionServicesImpl implements ISubscriptionServices {
 
     @Override
     @Scheduled(cron = "*/30 * * * * *")  // Runs every 30 seconds
-    public void retrieveSubscriptions() {
+    public List<Subscription> retrieveSubscriptions() {
         log.info("Starting subscription retrieval process");
         for (Subscription sub : subscriptionRepository.findDistinctOrderByEndDateAsc()) {
             Skier skier = skierRepository.findBySubscription(sub);
@@ -80,6 +80,7 @@ public class SubscriptionServicesImpl implements ISubscriptionServices {
                     + " | Skier: " + skier.getFirstName() + " " + skier.getLastName());
         }
         log.info("Finished subscription retrieval process");
+        return null;
     }
 
     @Scheduled(cron = "*/30 * * * * *") // Example: Runs every 30 seconds
