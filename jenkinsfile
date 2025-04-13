@@ -11,8 +11,15 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    // First compile the code to generate the classes
                     sh 'mvn clean compile'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                script {
+                    sh 'mvn test'
                 }
             }
         }
@@ -28,7 +35,7 @@ pipeline {
                         -Dsonar.sources=. \
                         -Dsonar.java.binaries=target/classes \
                         -Dsonar.host.url=${SONAR_HOST_URL} \
-                        -Dsonar.token=${SONAR_AUTH_TOKEN}  # Changed from login to token
+                        -Dsonar.token=${SONAR_AUTH_TOKEN}
                         """
                     }
                 }
@@ -38,18 +45,16 @@ pipeline {
         stage('Package') {
             steps {
                 script {
-                    // Create the final package
                     sh 'mvn package -DskipTests'
                     archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
                 }
             }
         }
 
-        stage('Test') {
+        stage('Building Docker images (springboot and mysql)') {
             steps {
                 script {
-                    // Run tests after packaging
-                    sh 'mvn test'
+                    sh 'docker-compose build'
                 }
             }
         }
