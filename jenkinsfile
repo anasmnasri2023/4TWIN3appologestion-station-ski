@@ -2,23 +2,16 @@ pipeline {
     agent any
 
     tools {
-        // Configure these tool names in Jenkins Global Tool Configuration
-        maven 'M3'          // Maven installation
-        jdk 'jdk17'        // Java JDK (adjust version as needed)
-    }
-
-    environment {
-        // Optional: Set these if you need specific versions
-        JAVA_HOME = "${tool 'jdk17'}"
-        MAVEN_HOME = "${tool 'M3'}"
+        // Make sure these names match Jenkins Global Tool Configuration
+        maven 'M3'       // Maven tool name in Jenkins
+        jdk 'jdk17'      // JDK tool name in Jenkins
     }
 
     stages {
         stage('Checkout Code') {
             steps {
                 git branch: 'ghassen', 
-                     url: 'https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git',
-                     credentialsId: '' // Add credentials ID if needed
+                     url: 'https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git'
             }
         }
 
@@ -34,18 +27,18 @@ pipeline {
             }
             post {
                 always {
-                    junit '**/target/surefire-reports/*.xml' // Archive test results
+                    junit '**/target/surefire-reports/*.xml'
                 }
             }
         }
 
         stage('Package') {
             steps {
-                sh 'mvn package -DskipTests' // Skip tests if they were already run
+                sh 'mvn package -DskipTests'
             }
             post {
                 success {
-                    archiveArtifacts 'target/*.jar' // Save the built package
+                    archiveArtifacts 'target/*.jar'
                 }
             }
         }
@@ -53,14 +46,13 @@ pipeline {
 
     post {
         always {
-            cleanWs() // Clean up workspace when done
+            cleanWs()
         }
         success {
             echo '✅ Pipeline succeeded!'
         }
         failure {
             echo '❌ Pipeline failed! Check logs for details.'
-            // Optional: Send notification (email, Slack, etc.)
         }
     }
 }
