@@ -10,7 +10,7 @@ pipeline {
         JAVA_HOME = '/usr/lib/jvm/java-17-openjdk-amd64'
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
         SONAR_HOST_URL = 'http://localhost:9000' // adapte si nécessaire
-        SONAR_AUTH_TOKEN = credentials('sonar-token-id') // ID des credentials dans Jenkins
+        SONAR_AUTH_TOKEN = credentials('devopsYasminee') // ID des credentials dans Jenkins
     }
 
     stages {
