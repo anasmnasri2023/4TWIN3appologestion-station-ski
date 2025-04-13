@@ -4,28 +4,41 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Clone your GitHub repository
                 checkout scm
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    def scannerHome = tool 'scanner'
+                    withSonarQubeEnv {
+                        sh "${scannerHome}/bin/sonar-scanner"
+                    }
+                }
             }
         }
 
         stage('Build') {
             steps {
                 script {
-                    // Install dependencies and build the package (skip tests for now)
-                    sh 'mvn clean package -DskipTests'
+                    sh 'mvn clean compile'
                 }
             }
         }
 
-        
+        stage('Test') {
+            steps {
+                script {
+                    sh 'mvn test'
+                }
+            }
+        }
 
         stage('Package') {
             steps {
                 script {
-                    // Create final JAR file
-                    sh 'mvn package -DskipTests'
-                    // Archive the built JAR
+                    sh 'mvn package'
                     archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
                 }
             }
@@ -35,7 +48,6 @@ pipeline {
     post {
         always {
             echo 'Pipeline completed'
-            // Clean up workspace if needed
             cleanWs()
         }
         success {
