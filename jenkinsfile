@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         maven 'M2_HOME'
-        jdk 'JAVA_HOME' 
+        jdk 'JAVA_HOME'
     }
 
     environment {
@@ -40,6 +40,8 @@ pipeline {
                         -Dsonar.projectKey=devopsYasminee \
                         -Dsonar.sources=. \
                         -Dsonar.host.url=${SONAR_HOST_URL} \
+                        -Dsonar.token=${SONAR_AUTH_TOKEN}  // Remarque l'ajout de la variable ${SONAR_AUTH_TOKEN}
+                        """
                     }
                 }
             }
