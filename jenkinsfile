@@ -4,7 +4,6 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Clone your GitHub repository
                 checkout scm
             }
         }
@@ -12,7 +11,6 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    // Install dependencies and build the package (skip tests for now)
                     sh 'mvn clean package -DskipTests'
                 }
             }
@@ -22,15 +20,8 @@ pipeline {
             steps {
                 script {
                     def scannerHome = tool 'scanner'
-                    withSonarQubeEnv('sonarqube') {
-                        sh """
-                            ${scannerHome}/bin/sonar-scanner \
-                            -Dsonar.projectKey=nodeapp \
-                            -Dsonar.projectName=gestion-station-ski \
-                            -Dsonar.sources=src/main/java \
-                            -Dsonar.java.binaries=target/classes \
-                            -Dsonar.language=java
-                        """
+                    withSonarQubeEnv {
+                        sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
             }
@@ -39,9 +30,7 @@ pipeline {
         stage('Package') {
             steps {
                 script {
-                    // Create final JAR file
                     sh 'mvn package -DskipTests'
-                    // Archive the built JAR
                     archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
                 }
             }
@@ -51,7 +40,6 @@ pipeline {
     post {
         always {
             echo 'Pipeline completed'
-            // Clean up workspace if needed
             cleanWs()
         }
         success {
