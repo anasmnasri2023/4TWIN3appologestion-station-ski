@@ -9,7 +9,7 @@ pipeline {
 
         stage('Git Checkout') {
             steps {
-                git branch: 'ghassen', url: 'https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git
+                git branch: 'ghassen', url: 'https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git'
             }
         }
 
