@@ -58,9 +58,13 @@
 			<artifactId>h2</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+
 	</dependencies>
 
 	<build>
+		<directory>target</directory>
+		<outputDirectory>target/classes</outputDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
