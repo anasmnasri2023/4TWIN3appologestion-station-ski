@@ -5,24 +5,32 @@ services:
     build: .
     image: stationski:1.0
     ports:
-      - "8080:8080"
+      - "8089:8089"  # Changed to match your server.port
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/stationski
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/stationSki?createDatabaseIfNotExist=true
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
+      - SERVER_PORT=8089
+      - SERVER_SERVLET_CONTEXT-PATH=/api
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   db:
     image: mysql:8.0
     container_name: stationski-db
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=stationski
+      - MYSQL_DATABASE=stationSki
     ports:
       - "3306:3306"
     volumes:
       - db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
 
   prometheus:
     image: prom/prometheus
