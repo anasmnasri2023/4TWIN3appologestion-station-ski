@@ -5,11 +5,7 @@ pipeline {
         stage('Install dependencies') {
             steps {
                 script {
-                    // For Maven
-                    sh 'mvn clean install -DskipTests'
-                    
-                    // If you're using Gradle instead, replace with:
-                    // sh './gradlew build -x test'
+                    sh 'mvn clean install -DskipTests' 
                 }
             }
         }
@@ -18,9 +14,6 @@ pipeline {
             steps {
                 script {
                     sh 'mvn test'
-                    
-                    // For Gradle:
-                    // sh './gradlew test'
                 }
             }
         }
@@ -29,9 +22,6 @@ pipeline {
             steps {
                 script {
                     sh 'mvn package -DskipTests'
-                    
-                    // For Gradle:
-                    // sh './gradlew build -x test'
                 }
             }
         }
