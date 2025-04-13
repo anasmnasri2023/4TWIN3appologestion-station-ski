@@ -1,8 +1,8 @@
-version: "3.8"
-
 services:
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: stationski:1.0
     ports:
       - "8089:8089"
