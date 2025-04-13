@@ -14,8 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -82,5 +81,33 @@ public class PisteServicesImplTest {
         pisteServices.removePiste(1L);
 
         verify(pisteRepository, times(1)).deleteById(1L);
+    }
+    // ADD THESE NEW TESTS TO YOUR EXISTING PisteServicesImplTest.java
+    @Test
+    public void testRetrievePiste_NotFound() {
+        when(pisteRepository.findById(99L)).thenReturn(Optional.empty());
+        Piste result = pisteServices.retrievePiste(99L);
+        assertNull(result); // Verify non-existent piste returns null
+    }
+
+    @Test
+    public void testAddPiste_InvalidSlope() {
+        piste.setSlope(-5); // Invalid value
+        assertThrows(IllegalArgumentException.class,
+                () -> pisteServices.addPiste(piste)); // Should reject negative slope
+    }
+
+    @Test
+    public void testAddPiste_MaxLength() {
+        piste.setLength(5000);
+        when(pisteRepository.save(piste)).thenReturn(piste);
+        Piste result = pisteServices.addPiste(piste);
+        assertEquals(5000, result.getLength()); // Verify long piste is allowed
+    }
+
+    @Test
+    public void testAddPiste_NullPiste() {
+        assertThrows(IllegalArgumentException.class,
+                () -> pisteServices.addPiste(null)); // Should reject null input
     }
 }
