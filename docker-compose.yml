@@ -7,29 +7,34 @@ services:
     ports:
       - "8089:8089"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/stationSki?useSSL=false&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/stationSki?useSSL=false&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
     depends_on:
       db:
         condition: service_healthy
+    restart: unless-stopped
 
   db:
     image: mysql:8.0
     container_name: stationski-db
     environment:
-      MYSQL_ROOT_PASSWORD: root  # Only root user needed
-      MYSQL_DATABASE: stationSki  # Auto-creates DB
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: stationSki
     ports:
-      - "3307:3306" # Expose MySQL on port 3307
+      - "3307:3306"  # Still using 3307 to avoid host conflicts
     volumes:
-      - db-data:/var/lib/mysql  # Data persistence
+      - db-data:/var/lib/mysql  # Only keeping data persistence
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -uroot -proot || exit 1"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
       interval: 5s
       timeout: 10s
       retries: 20
-    command: --default-authentication-plugin=mysql_native_password
+    command:
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
 
   prometheus:
     image: prom/prometheus
