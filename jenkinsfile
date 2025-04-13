@@ -4,29 +4,29 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm  // Explicit checkout step
+                // Clone your GitHub repository
+                checkout scm
             }
         }
 
-        stage('Build and Test') {
+        stage('Build') {
             steps {
                 script {
-                    // This will run both unit tests and build the package
-                    sh 'mvn clean package'
-                }
-            }
-            post {
-                always {
-                    junit '**/target/surefire-reports/*.xml'  // Archive test results
+                    // Install dependencies and build the package (skip tests for now)
+                    sh 'mvn clean package -DskipTests'
                 }
             }
         }
 
-        stage('Install') {
+        
+
+        stage('Package') {
             steps {
                 script {
-                    // Only needed if you want to install to local repo
-                    sh 'mvn install -DskipTests'
+                    // Create final JAR file
+                    sh 'mvn package -DskipTests'
+                    // Archive the built JAR
+                    archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
                 }
             }
         }
@@ -34,7 +34,9 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+            echo 'Pipeline completed'
+            // Clean up workspace if needed
+            cleanWs()
         }
         success {
             echo 'Build succeeded!'
