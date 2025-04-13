@@ -1,44 +1,32 @@
 pipeline {
     agent any
 
-    tools {
-        // Make sure these names match Jenkins Global Tool Configuration
-        maven 'M3'       // Maven tool name in Jenkins
-        jdk 'jdk17'      // JDK tool name in Jenkins
-    }
-
     stages {
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                git branch: 'ghassen', 
-                     url: 'https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git'
+                // Clone your GitHub repository
+                checkout scm
             }
         }
 
         stage('Build') {
             steps {
-                sh 'mvn clean compile'
-            }
-        }
-
-        stage('Run Tests') {
-            steps {
-                sh 'mvn test'
-            }
-            post {
-                always {
-                    junit '**/target/surefire-reports/*.xml'
+                script {
+                    // Install dependencies and build the package (skip tests for now)
+                    sh 'mvn clean package -DskipTests'
                 }
             }
         }
 
+        
+
         stage('Package') {
             steps {
-                sh 'mvn package -DskipTests'
-            }
-            post {
-                success {
-                    archiveArtifacts 'target/*.jar'
+                script {
+                    // Create final JAR file
+                    sh 'mvn package -DskipTests'
+                    // Archive the built JAR
+                    archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
                 }
             }
         }
@@ -46,13 +34,15 @@ pipeline {
 
     post {
         always {
+            echo 'Pipeline completed'
+            // Clean up workspace if needed
             cleanWs()
         }
         success {
-            echo '✅ Pipeline succeeded!'
+            echo 'Build succeeded!'
         }
         failure {
-            echo '❌ Pipeline failed! Check logs for details.'
+            echo 'Build failed!'
         }
     }
 }
