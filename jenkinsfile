@@ -18,6 +18,15 @@ pipeline {
             }
         }
 
+        // Building Docker images
+        stage('Building images ') {
+        steps{
+        script {
+        sh('docker-compose build')
+        }
+        }
+        }
+
 
 
         stage('Package') {
