@@ -7,17 +7,19 @@ pipeline {
                 checkout scm
             }
         }
-
         stage('SonarQube Analysis') {
-            steps {
-                script {
-                    def scannerHome = tool 'scanner'
-                    withSonarQubeEnv('SonarQubeServer') { // Mets ici le nom configuré de ton SonarQube dans Jenkins
-                        sh "${scannerHome}/bin/sonar-scanner"
-                    }
-                }
-            }
+           steps{
+            script {
+                def scannerHome = tool 'scanner'
+                   withSonarQubeEnv {
+                    sh "${scannerHome}/bin/sonar-scanner"
+               }
+           }
         }
+    }
+
+
+
 
         stage('Build') {
             steps {
