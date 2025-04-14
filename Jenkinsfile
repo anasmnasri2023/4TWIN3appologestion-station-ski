@@ -1,12 +1,12 @@
 pipeline {
     agent any
-
+    
     environment {
         registryCredentials = "nexus"
         registry = "192.168.70.47:8083"
         NEXUS_PASSWORD = '455a3956-6a34-4538-acae-df39a3936c1e'
     }
-
+    
     stages {
         stage('Checkout') {
             steps {
@@ -14,7 +14,7 @@ pipeline {
                     url: 'https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git'
             }
         }
-
+        
         stage('Build') {
             steps {
                 script {
@@ -22,7 +22,7 @@ pipeline {
                 }
             }
         }
-
+        
         stage('Test') {
             steps {
                 script {
@@ -30,7 +30,7 @@ pipeline {
                 }
             }
         }
-
+        
         stage('SonarQube Analysis') {
             steps {
                 script {
@@ -56,7 +56,7 @@ pipeline {
                 }
             }
         }
-
+        
         stage('Package') {
             steps {
                 script {
@@ -65,7 +65,7 @@ pipeline {
                 }
             }
         }
-
+        
         stage('Docker Diagnostics') {
             steps {
                 script {
@@ -84,14 +84,14 @@ pipeline {
                 }
             }
         }
-
+        
         stage('Building Docker images (springboot and mysql)') {
             steps {
                 script {
                     try {
                         // Simple approach - use sudo without password if configured
                         sh 'sudo chmod 666 /var/run/docker.sock || echo "Failed to set permissions, continuing anyway"'
-
+                        
                         // Build with docker-compose
                         sh 'docker-compose build'
                     } catch (Exception e) {
@@ -104,14 +104,14 @@ pipeline {
                 }
             }
         }
-
+        
         stage('Deploy to Nexus') {
             steps {
                 script {
                     try {
                         // Verify Nexus connectivity
                         sh "curl -m 5 -s -o /dev/null -w '%{http_code}' http://${registry} || echo 'Could not connect to Nexus'"
-
+                        
                         // Login to Nexus and push image
                         sh "echo '${NEXUS_PASSWORD}' | docker login http://${registry} -u admin --password-stdin"
                         // Modify tags to include http:// prefix explicitly
@@ -126,7 +126,7 @@ pipeline {
                 }
             }
         }
-
+        
         stage('Run Application') {
             steps {
                 script {
@@ -137,7 +137,7 @@ pipeline {
             }
         }
     }
-
+    
     post {
         always {
             echo 'Pipeline completed'
