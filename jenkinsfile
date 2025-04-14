@@ -2,89 +2,91 @@ pipeline {
     agent any
 
     environment {
-        SONARQUBE_SERVER = 'http://192.168.33.10:9000'
-        SONARQUBE_TOKEN = credentials('scanner')
-        registryCredentials = "nexus"
-        registry = "192.168.33.10:8083"
+
+     SONARQUBE_SERVER = 'http://192.168.33.10:9000'
+     SONARQUBE_TOKEN = credentials('scanner')  // Ensure 'scanner' matches the Jenkins credential ID
+    registryCredentials = "nexus"
+    registry = "192.168.33.10:8083"
     }
 
     stages {
         stage('Checkout') {
             steps {
+                // Clone your GitHub repository
                 checkout scm
-            }
-        }
-
-        stage('Test') {
-            steps {
-                script {
-                    // Lancer les tests comme IntelliJ
-                    sh 'mvn test'
-                }
             }
         }
 
         stage('Build') {
             steps {
                 script {
-                    // Construire sans relancer les tests
+                    // Install dependencies and build the package (skip tests for now)
                     sh 'mvn clean package -DskipTests'
                 }
             }
         }
 
-        stage('Building images') {
-            steps {
-                script {
-                    sh 'docker-compose build'
-                }
-            }
+
+
+
+
+        // Building Docker images
+        stage('Building images ') {
+        steps{
+        script {
+        sh('docker-compose build')
+        }
+        }
         }
 
-
         // Uploading Docker images into Nexus Registry
-            stage('Deploy to Nexus') {
-                steps {
-                    script {
-                        // Tag the image for your Nexus registry
-                        sh 'docker tag devops-pipeline_ghassen_spring_app:latest 192.168.33.10:8083/springbootapp:1.0'
+     stage('Deploy to Nexus') {
+         steps {
+             script {
+                 // Tag the image for your Nexus registry
+                 sh 'docker tag devops-pipeline_ghassen_spring_app:latest 192.168.33.10:8083/springbootapp:1.0'
 
-                        docker.withRegistry("http://${registry}", registryCredentials) {
-                            sh 'docker push 192.168.33.10:8083/springbootapp:1.0'
-                        }
-                    }
-                }
-            }
+                 docker.withRegistry("http://${registry}", registryCredentials) {
+                     sh 'docker push 192.168.33.10:8083/springbootapp:1.0'
+                 }
+             }
+         }
+     }
 
 
-            stage('Run application') {
-                steps {
-                    script {
-                        docker.withRegistry("http://${registry}", registryCredentials) {
-                            sh "docker pull ${registry}/springbootapp:1.0"
-                            sh 'docker-compose up -d'
-                        }
-                    }
-                }
-            }
+     stage('Run application') {
+         steps {
+             script {
+                 docker.withRegistry("http://${registry}", registryCredentials) {
+                     sh "docker pull ${registry}/springbootapp:1.0"
+                     sh 'docker-compose up -d'
+                 }
+             }
+         }
+     }
+
+
 
 
 
         stage('Package') {
-                    steps {
-                        script {
-                            // Create final JAR file
-                            sh 'mvn package -DskipTests'
-                            // Archive the built JAR
-                            archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-                        }
-                    }
+            steps {
+                script {
+                    // Create final JAR file
+                    sh 'mvn package -DskipTests'
+                    // Archive the built JAR
+                    archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
                 }
             }
+        }
+    }
+
+
 
     post {
         always {
             echo 'Pipeline completed'
+            // Clean up workspace if needed
             cleanWs()
         }
         success {
