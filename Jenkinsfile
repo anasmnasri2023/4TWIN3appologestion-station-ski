@@ -24,23 +24,23 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
-            steps {
-                script {
-                    def scannerHome = tool 'scanner'
-                    withSonarQubeEnv('scanner') {
-                        sh """
-                        ${scannerHome}/bin/sonar-scanner \
-                        -Dsonar.projectKey=instructor-devops \
-                        -Dsonar.sources=. \
-                        -Dsonar.java.binaries=target/classes \
-                        -Dsonar.host.url=${SONAR_HOST_URL} \
-                        -Dsonar.token=${SONAR_AUTH_TOKEN}
-                        """
-                    }
-                }
-            }
-        }
+       stage('SonarQube Analysis') {
+           steps {
+               script {
+                   def scannerHome = tool 'sonar' // Changer 'scanner' en 'sonar' pour correspondre au nom de l'installation
+                   withSonarQubeEnv('sonar') { // Changer aussi ici pour correspondre
+                       sh """
+                       ${scannerHome}/bin/sonar-scanner \\
+                       -Dsonar.projectKey=instructor-devops \\
+                       -Dsonar.sources=. \\
+                       -Dsonar.java.binaries=target/classes \\
+                       -Dsonar.host.url=http://192.168.33.10:9000 \\ // URL explicite plutôt que variable
+                       -Dsonar.login=TOKEN_ICI // Remplacer par votre token réel ou utiliser un credential Jenkins
+                       """
+                   }
+               }
+           }
+       }
 
         stage('Package') {
             steps {
