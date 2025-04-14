@@ -26,6 +26,32 @@ pipeline {
             }
         }
 
+         stage('Test') {
+                    steps {
+                        script {
+                            sh 'mvn test'
+                        }
+                    }
+                }
+
+                stage('SonarQube Analysis') {
+                    steps {
+                        script {
+                            def scannerHome = tool 'scanner'
+                            withSonarQubeEnv('scanner') {
+                                sh """
+                                ${scannerHome}/bin/sonar-scanner \
+                                -Dsonar.projectKey=instructor-devops \
+                                -Dsonar.sources=. \
+                                -Dsonar.java.binaries=target/classes \
+                                -Dsonar.host.url=${SONAR_HOST_URL} \
+                                -Dsonar.token=${SONAR_AUTH_TOKEN}
+                                """
+                            }
+                        }
+                    }
+                }
+
         // Building Docker images
         stage('Building images ') {
         steps{
