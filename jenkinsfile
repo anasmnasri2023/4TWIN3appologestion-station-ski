@@ -49,7 +49,7 @@ pipeline {
         stage('Building images ') {
         steps{
         script {
-        sh('docker-compose build')
+        sh('sudo docker-compose build')
         }
         }
         }
