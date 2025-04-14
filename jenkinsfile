@@ -80,11 +80,13 @@ pipeline {
                 script {
                     docker.withRegistry("http://${registry}", registryCredentials) {
                         sh "docker pull ${registry}/springbootapp:1.0"
-                        sh 'docker-compose up -d'
+                        sh 'docker-compose down'   // Stop and remove old containers
+                        sh 'docker-compose up -d'   // Run fresh
                     }
                 }
             }
         }
+
 
     }
 

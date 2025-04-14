@@ -6,10 +6,8 @@ services:
     container_name: mysql-db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: stationSki
-      MYSQL_USER: root
-      MYSQL_PASSWORD: ""
+      MYSQL_ROOT_PASSWORD: root   # root password here
+      MYSQL_DATABASE: stationSki  # database created at startup
     ports:
       - "3306:3306"
     volumes:
