@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-        maven 'M2_HOME'
-        jdk 'JAVA_HOME'
+        maven 'M2_HOME'   // Make sure this matches the name of your Maven installation in Jenkins
+        jdk 'JAVA_HOME'    // Make sure this matches the name of your JDK installation in Jenkins
     }
 
     environment {
@@ -31,8 +31,8 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    def scannerHome = tool 'scanner'
-                    withSonarQubeEnv('scanner') {
+                    def scannerHome = tool 'scanner'  // Ensure the scanner tool is correctly configured in Jenkins
+                    withSonarQubeEnv('scanner') {  // Make sure 'scanner' matches the SonarQube installation in Jenkins
                         sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
@@ -44,8 +44,7 @@ pipeline {
                 sh 'mvn clean package -DskipTests'
             }
         }
-
-       
+    }
 
     post {
         always {
