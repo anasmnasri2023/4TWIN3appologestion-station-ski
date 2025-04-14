@@ -66,14 +66,38 @@ pipeline {
             }
         }
 
+        stage('Docker Diagnostics') {
+            steps {
+                script {
+                    sh 'echo "Docker client version:"'
+                    sh 'docker --version || true'
+                    sh 'echo "Docker compose version:"'
+                    sh 'docker-compose --version || true'
+                    sh 'echo "Docker info:"'
+                    sh 'docker info || true'
+                    sh 'echo "Docker socket:"'
+                    sh 'ls -la /var/run/docker.sock || true'
+                    sh 'echo "Daemon configuration:"'
+                    sh 'cat /etc/docker/daemon.json || true'
+                    sh 'echo "Jenkins user groups:"'
+                    sh 'id jenkins || true'
+                }
+            }
+        }
+
         stage('Building Docker images (springboot and mysql)') {
             steps {
                 script {
                     try {
+                        // Simple approach - use sudo without password if configured
+                        sh 'sudo chmod 666 /var/run/docker.sock || echo "Failed to set permissions, continuing anyway"'
+
+                        // Build with docker-compose
                         sh 'docker-compose build'
                     } catch (Exception e) {
                         echo "Docker build failed: ${e.message}"
-                        // Check docker-compose file
+                        echo "You may need to manually fix Docker permissions on the Jenkins server"
+                        // Display docker-compose file for debugging
                         sh 'cat docker-compose.yml || echo "No docker-compose.yml found"'
                         throw e
                     }
