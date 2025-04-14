@@ -113,7 +113,7 @@ pipeline {
                         sh "curl -m 5 -s -o /dev/null -w '%{http_code}' http://${registry} || echo 'Could not connect to Nexus'"
 
                         // Login to Nexus and push image
-                        sh "echo '${NEXUS_PASSWORD}' | docker login ${registry} -u admin --password-stdin"
+                        sh "echo '${NEXUS_PASSWORD}' | docker login http://${registry} -u admin --password-stdin"
                         sh "docker tag springbootapp:latest ${registry}/springbootapp:1.0 || echo 'Failed to tag image'"
                         sh "docker push ${registry}/springbootapp:1.0"
                     } catch (Exception e) {
