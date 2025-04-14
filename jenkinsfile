@@ -2,16 +2,16 @@ pipeline {
     agent any
 
     tools {
-        maven 'M2_HOME'   // Make sure this matches the name of your Maven installation in Jenkins
-        jdk 'JAVA_HOME'    // Make sure this matches the name of your JDK installation in Jenkins
+        maven 'M2_HOME'    // Nom configuré dans Jenkins > Global Tool Configuration
+        jdk 'JAVA_HOME'    // Nom configuré dans Jenkins > Global Tool Configuration
     }
 
     environment {
         JAVA_HOME = '/usr/lib/jvm/java-17-openjdk-amd64'
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
         SONARQUBE_SERVER = 'http://192.168.1.122:9000'
-        registryCredentials = "nexus"
-        registry = "192.168.33.10:8083"
+        registryCredentials = 'nexus'
+        registry = '192.168.33.10:8083'
     }
 
     stages {
@@ -27,16 +27,23 @@ pipeline {
 
         stage('Cloner le dépôt') {
             steps {
-                git branch: 'YasmineAttia-4twin3-Apollo', url: 'https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git'
+                git branch: 'YasmineAttia-4twin3-Apollo',
+                    url: 'https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git'
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    def scannerHome = tool 'scanner'  // Ensure the scanner tool is correctly configured in Jenkins
-                    withSonarQubeEnv('scanner') {  // Make sure 'scanner' matches the SonarQube installation in Jenkins
-                        sh "${scannerHome}/bin/sonar-scanner"
+                    def scannerHome = tool 'scanner' // Ce nom doit correspondre à celui défini dans Jenkins
+                    withSonarQubeEnv('scanner') {     // Ce nom doit correspondre à l'installation SonarQube déclarée
+                        sh """
+                            ${scannerHome}/bin/sonar-scanner \
+                            -Dsonar.projectKey=station-ski \
+                            -Dsonar.sources=. \
+                            -Dsonar.java.binaries=target/classes \
+                            -Dsonar.host.url=${SONARQUBE_SERVER}
+                        """
                     }
                 }
             }
@@ -48,29 +55,34 @@ pipeline {
             }
         }
 
-        stage('Building images ') {
-        steps{
-        script {
-        sh('sudo docker-compose build')
-        }
-        }
-        }
-          stage('Deploy to Nexus') {
-        steps {
-            script {
-                docker.withRegistry("http://${registry}", registryCredentials) {
-                    sh('docker push 192.168.33.10:8083/springbootapp:1.0')
+        stage('Building images') {
+            steps {
+                script {
+                    sh 'docker-compose build'
                 }
             }
         }
-    }
-    }
-       
+
+        stage('Deploy to Nexus') {
+            steps {
+                script {
+                    docker.withRegistry("http://${registry}", registryCredentials) {
+                        sh 'docker push 192.168.33.10:8083/springbootapp:1.0'
+                    }
+                }
+            }
+        }
     }
 
     post {
         always {
             echo 'Build completed'
+        }
+        success {
+            echo 'Build succeeded!'
+        }
+        failure {
+            echo 'Build failed!'
         }
     }
 }
