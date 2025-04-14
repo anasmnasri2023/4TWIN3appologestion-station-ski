@@ -86,13 +86,12 @@ pipeline {
      stage('Run Prometheus') {
     steps {
         script {
-            sh 'docker stop prometheus4 || true'  // Arrête le container existant
-            sh 'docker rm prometheus4 || true'    // Supprime le container existant
-            sh 'docker run -d --name prometheus4 -p 9090:9090 prom/prometheus4'  // Lance prometheus4
+            sh 'docker stop prometheus || true'
+            sh 'docker rm prometheus || true'
+            sh 'docker run -d --name prometheus -p 9090:9090 prom/prometheus'
         }
     }
 }
-
 
         stage('Run Grafana') {
             steps {
