@@ -113,14 +113,14 @@ pipeline {
             mail(
                 to: 'yasmine.attia12@gmail.com',
                 subject: '✅ Succès - Pipeline Jenkins',
-                body: 'Salut! Mr Msaed Iheb,\n\nLe pipeline Jenkins s\'est exécuté avec succès.\n\nCordialement,\nTon Jenkins 😎'
+                body: 'Salut! MadameYesmine ,\n\nLe pipeline Jenkins s\'est exécuté avec succès.\n\nCordialement,\nTon Jenkins 😎'
             )
         }
         failure {
             mail(
                 to: 'yasmine.attia12@gmail.com',
                 subject: '❌ Échec - Pipeline Jenkins',
-                body: 'Salut! Mr Msaed Iheb,\n\nLe pipeline Jenkins a échoué. Va voir ce qui s\'est passé dans les logs.\n\nBon courage !'
+                body: 'Salut! Madame yesmine,\n\nLe pipeline Jenkins a échoué. Va voir ce qui s\'est passé dans les logs.\n\nBon courage !'
             )
         }
     }
