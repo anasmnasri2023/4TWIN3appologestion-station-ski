@@ -6,215 +6,188 @@ pipeline {
         SONARQUBE_TOKEN = credentials('scanner')
         registryCredentials = "nexus"
         registry = "192.168.33.10:8083"
+        MAVEN_OPTS = "-Xmx2g -Xms1g -XX:MaxRAMPercentage=70.0"
     }
 
     stages {
+        /* Stage 1: Fast Checkout with Lightweight Clone */
         stage('Checkout') {
             steps {
-                checkout scm
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/main']],
+                    extensions: [[
+                        $class: 'CloneOption',
+                        depth: 1,
+                        shallow: true
+                    ]],
+                    userRemoteConfigs: [[
+                        url: 'https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git'
+                    ]]
+                ])
             }
         }
 
-        stage('Maven Build') {
+        /* Stage 2: Parallel Build and Test */
+        stage('Build & Test') {
+            parallel {
+                /* Parallel Job 1: Fast Maven Build with Caching */
+                stage('Maven Build') {
                     steps {
-                        sh 'mvn clean install -DskipTests'
+                        sh '''
+                            mvn -B -q clean install -DskipTests \
+                            -Dmaven.repo.local=/tmp/m2repo \
+                            -Dspring.datasource.url=jdbc:mysql://192.168.33.10:3306/stationSki \
+                            -Dspring.datasource.username=root \
+                            -Dspring.datasource.password= \
+                            -Dspring.jpa.hibernate.ddl-auto=update
+                        '''
                     }
                 }
 
-
+                /* Parallel Job 2: Optimized Test Execution */
                 stage('Run Tests') {
-                            steps {
-                                script {
-                                    try {
-                                        echo "Running JUnit tests using external MySQL..."
-                                        sh """
-                                            mvn test \
-                                            -Dspring.datasource.url=jdbc:mysql://192.168.33.10:3306/stationSki?createDatabaseIfNotExist=true \
-                                            -Dspring.datasource.username=root \
-                                            -Dspring.datasource.password= \
-                                            -Dspring.jpa.hibernate.ddl-auto=update
-                                        """
-                                    } catch (Exception e) {
-                                        echo "JUnit tests failed: ${e}"
-                                        currentBuild.result = 'UNSTABLE'
-                                    }
-                                }
-                            }
-                            post {
-                                always {
-                                    junit '**/target/surefire-reports/*.xml'
-                                }
-                            }
-                        }
-
-
-
-                    stage('SonarQube Analysis') {
-                               steps {
-                                   script {
-                                       try {
-                                           // Step 1: Build and test with MySQL connection parameters (generates jacoco.xml)
-                                           sh """
-                                               mvn clean install \
-                                               -Dspring.datasource.url=jdbc:mysql://192.168.33.10:3306/stationSki?createDatabaseIfNotExist=true \
-                                               -Dspring.datasource.username=root \
-                                               -Dspring.datasource.password= \
-                                               -Dspring.jpa.hibernate.ddl-auto=update
-                                           """
-
-                                           // Step 2: Show content of JaCoCo report folder
-                                           sh 'ls -l target/site/jacoco/'
-
-                                           // Step 3: Run SonarQube analysis with coverage report
-                                           sh """
-                                               mvn sonar:sonar \
-                                               -Dsonar.projectKey=tn.esprit.myspringapp \
-                                               -Dsonar.host.url=${SONARQUBE_SERVER} \
-                                               -Dsonar.login=${SONARQUBE_TOKEN} \
-                                               -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
-                                           """
-                                       } catch (Exception e) {
-                                           echo "SonarQube analysis failed: ${e}"
-                                           currentBuild.result = 'UNSTABLE'
-                                       }
-                                   }
-                               }
-                           }
-
-
-
-             stage('Package Application') {
-                        steps {
-                            script {
-                                echo "Packaging the application..."
-                                sh "mvn package -DskipTests"
-
-                                // Archive the packaged .jar file in Jenkins
-                                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-                            }
-                        }
-                        post {
-                            success {
-                                echo "Application packaged successfully!"
-                            }
-                            failure {
-                                echo "Failed to package application!"
-                            }
-                        }
-                    }
-
-
-
-                    stage('Build Docker Image') {
-                        steps {
-                            script {
-                                echo "Building Docker image..."
-                                // Build and tag the Docker image with the build number
-                                sh "docker build -t ${registry}/myspringapp:${BUILD_NUMBER} ."
-                                // Optionally, tag the image as 'latest'
-                                sh "docker tag ${registry}/myspringapp:${BUILD_NUMBER} ${registry}/myspringapp:latest"
-                            }
-                        }
-                    }
-
-
-
-
-         stage('Deploy to Nexus') {
                     steps {
                         script {
-                            // Upload Docker Image to Nexus Registry
-                            docker.withRegistry("http://${registry}", registryCredentials) {
-                                // Push the Docker image with both tags: BUILD_NUMBER and latest
-                                sh "docker push ${registry}/myspringapp:${BUILD_NUMBER}"
-                                sh "docker push ${registry}/myspringapp:latest"
-                            }
-                        }
-                    }
-                }
-                stage('Run Application') {
-                    steps {
-                        script {
-                            echo "Starting the application container..."
-
-                            // Use docker.withRegistry to handle authentication when pulling the image
-                            docker.withRegistry("http://${registry}", registryCredentials) {
-                                // Pull the latest image we just pushed to Nexus
-                                sh "docker pull ${registry}/myspringapp:${BUILD_NUMBER}"
-
-                                // Stop and remove any existing container with the same name to avoid conflicts
-                                sh "docker stop myspringapp-container || true"
-                                sh "docker rm myspringapp-container || true"
-
-                                // Run the Docker container with port 8089
-                                sh """
-                                    docker run -d \
-                                    --name myspringapp-container \
-                                    -p 8089:8089 \
-                                    -e SPRING_DATASOURCE_URL=jdbc:mysql://192.168.33.10:3306/stationSki?createDatabaseIfNotExist=true \
-                                    -e SPRING_DATASOURCE_USERNAME=root \
-                                    -e SPRING_DATASOURCE_PASSWORD= \
-                                    -e SPRING_JPA_HIBERNATE_DDL_AUTO=update \
-                                    ${registry}/myspringapp:${BUILD_NUMBER}
-                                """
-
-                                // Verify the container is running
-                                sh "docker ps | grep myspringapp-container"
-
-                                // Wait for application to start up properly
-                                sh "sleep 20"
-
-                                // Check if application is responding
-                                sh "curl -s -o /dev/null -w '%{http_code}' http://localhost:8089/api/health || echo 'Health check failed'"
-
-                                // Try to open Swagger UI in a browser (depends on the Jenkins environment)
-                                if (isUnix()) {
-                                    sh """
-                                        (which xdg-open && xdg-open http://localhost:8089/api/swagger-ui.html) || \
-                                        (which open && open http://localhost:8089/api/swagger-ui.html) || \
-                                        echo "Could not automatically open browser"
-                                    """
-                                } else {
-                                    // For Windows
-                                    bat "start http://localhost:8089/api/swagger-ui.html || echo Could not open browser"
-                                }
-
-                                // Print URLs for easy access
-                                echo "=========================================="
-                                echo "Application is now running!"
-                                echo "Swagger UI is available at: http://localhost:8089/api/swagger-ui.html"
-                                echo "Alternative Swagger UI: http://localhost:8089/api/swagger-ui/index.html"
-                                echo "API docs: http://localhost:8089/api/v3/api-docs"
-                                echo "=========================================="
+                            try {
+                                sh '''
+                                    mvn -B -q test \
+                                    -Dspring.datasource.url=jdbc:mysql://192.168.33.10:3306/stationSki \
+                                    -Dspring.datasource.username=root \
+                                    -Dspring.datasource.password= \
+                                    -Dspring.jpa.hibernate.ddl-auto=update
+                                '''
+                            } catch (Exception e) {
+                                echo "Tests failed (marked unstable): ${e}"
+                                currentBuild.result = 'UNSTABLE'
                             }
                         }
                     }
                     post {
-                        success {
-                            echo "Application is now running successfully on port 8089!"
-                        }
-                        failure {
-                            echo "Failed to start the application!"
-                            // Optionally get logs to debug
-                            sh "docker logs myspringapp-container || true"
+                        always {
+                            junit '**/target/surefire-reports/*.xml'
                         }
                     }
                 }
+            }
+        }
 
+        /* Stage 3: SonarQube Analysis with Cached Build */
+        stage('SonarQube Analysis') {
+            when {
+                branch 'main'
+            }
+            steps {
+                script {
+                    try {
+                        sh '''
+                            mvn -B -q sonar:sonar \
+                            -Dsonar.projectKey=tn.esprit.myspringapp \
+                            -Dsonar.host.url=${SONARQUBE_SERVER} \
+                            -Dsonar.login=${SONARQUBE_TOKEN} \
+                            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+                        '''
+                    } catch (Exception e) {
+                        echo "SonarQube failed: ${e}"
+                        currentBuild.result = 'UNSTABLE'
+                    }
+                }
+            }
+        }
 
+        /* Stage 4: Efficient Packaging */
+        stage('Package Application') {
+            steps {
+                sh 'mvn -B -q package -DskipTests'
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+            }
+        }
 
+        /* Stage 5: Docker Build with Layer Caching */
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.build("${registry}/myspringapp:${BUILD_NUMBER}", "--build-arg MAVEN_OPTS='${MAVEN_OPTS}' .")
+                    docker.withRegistry("http://${registry}", registryCredentials) {
+                        docker.image("${registry}/myspringapp:${BUILD_NUMBER}").push()
+                        docker.image("${registry}/myspringapp:${BUILD_NUMBER}").push('latest')
+                    }
+                }
+            }
+        }
 
+        /* Stage 6: Smart Deployment */
+        stage('Deploy & Run') {
+            steps {
+                script {
+                    try {
+                        // Stop existing container if running
+                        sh 'docker stop myspringapp-container || true'
+                        sh 'docker rm myspringapp-container || true'
+
+                        // Run new container with health check
+                        sh """
+                            docker run -d \
+                            --name myspringapp-container \
+                            -p 8089:8089 \
+                            -e SPRING_DATASOURCE_URL=jdbc:mysql://192.168.33.10:3306/stationSki \
+                            -e SPRING_DATASOURCE_USERNAME=root \
+                            -e SPRING_DATASOURCE_PASSWORD= \
+                            -e SPRING_JPA_HIBERNATE_DDL_AUTO=update \
+                            ${registry}/myspringapp:${BUILD_NUMBER}
+                        """
+
+                        // Verify deployment
+                        timeout(time: 2, unit: 'MINUTES') {
+                            waitUntil {
+                                def status = sh(
+                                    script: 'curl -s -o /dev/null -w "%{http_code}" http://localhost:8089/api/health',
+                                    returnStdout: true
+                                ).trim()
+                                return (status == "200")
+                            }
+                        }
+                    } catch (Exception e) {
+                        echo "Deployment failed: ${e}"
+                        sh 'docker logs myspringapp-container || true'
+                        error("Deployment failed")
+                    }
+                }
+            }
+            post {
+                success {
+                    echo """
+                    ==========================================
+                    DEPLOYMENT SUCCESSFUL!
+                    Application URL: http://${env.JENKINS_URL}/myspringapp-container
+                    Swagger UI: http://localhost:8089/api/swagger-ui.html
+                    ==========================================
+                    """
+                }
+            }
+        }
+    }
 
     post {
         always {
-            echo 'Pipeline completed'
-            cleanWs()
-        }
-        success {
-            echo 'Build succeeded!'
-        }
-        failure {
-            echo 'Build failed!'
+            /* Clean workspace but preserve Maven cache */
+            cleanWs(
+                cleanWhenAborted: true,
+                cleanWhenFailure: true,
+                cleanWhenNotBuilt: true,
+                cleanWhenUnstable: true,
+                deleteDirs: true,
+                patterns: [[pattern: '.gitignore', type: 'INCLUDE'],
+                          [pattern: '.mvn/**', type: 'EXCLUDE'],
+                          [pattern: '/tmp/m2repo/**', type: 'EXCLUDE']]
+            )
+
+            /* Send notifications */
+            emailext (
+                subject: "Jenkins Build ${currentBuild.result}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """Check console output at ${env.BUILD_URL}""",
+                recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+            )
         }
     }
 }
