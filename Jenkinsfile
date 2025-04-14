@@ -4,87 +4,76 @@ pipeline {
     environment {
         DOCKER_REGISTRY = "192.168.33.10:8083"
         IMAGE_NAME = "stationski"
-        TAG = "1.0"
+        TAG = "${BUILD_NUMBER}"
+        DOCKER_COMPOSE = "docker-compose -f docker-compose.yml"
     }
 
     stages {
-        stage('Checkout SCM') {
+        stage('Checkout & Prep') {
             steps {
                 checkout scm
+                sh 'mkdir -p prometheus'
+                writeFile file: 'prometheus/prometheus.yml', text: readFile('prometheus/prometheus.yml')
             }
         }
 
-        stage('Run Tests') {
+        stage('Build & Test') {
             steps {
-                // Skip tests temporarily to allow pipeline to complete
-                sh 'mvn package -DskipTests'
+                sh 'mvn clean package'
+                junit '**/target/surefire-reports/*.xml'
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
+                withSonarQubeEnv('sonar') {
+                    sh 'mvn sonar:sonar'
+                }
+                timeout(time: 5, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+
+        stage('Build Docker Images') {
+            steps {
                 script {
-                    def scannerHome = tool 'scanner'
-                    withSonarQubeEnv('sonar') {
+                    sh "${DOCKER_COMPOSE} build"
+                    withCredentials([usernamePassword(
+                        credentialsId: 'nexus',
+                        usernameVariable: 'NEXUS_USER',
+                        passwordVariable: 'NEXUS_PASS'
+                    )]) {
                         sh """
-                            ${scannerHome}/bin/sonar-scanner \\
-                            -Dsonar.projectKey=stationski \\
-                            -Dsonar.projectName='Gestion Station Ski' \\
-                            -Dsonar.sources=src/main \\
-                            -Dsonar.java.binaries=target/classes \\
-                            -Dsonar.language=java \\
-                            -Dsonar.sourceEncoding=UTF-8
+                            docker login ${DOCKER_REGISTRY} -u ${NEXUS_USER} -p ${NEXUS_PASS}
+                            docker tag ${IMAGE_NAME}:latest ${DOCKER_REGISTRY}/${IMAGE_NAME}:${TAG}
+                            docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}:${TAG}
                         """
                     }
                 }
             }
         }
 
-        stage('Build Application') {
-            steps {
-                sh 'mvn clean package -DskipTests'
-            }
-        }
-
-        stage('Build and Deploy') {
+        stage('Deploy') {
             steps {
                 script {
-                    // Build Docker images
-                    sh 'docker-compose build'
+                    // Start DB first
+                    sh "${DOCKER_COMPOSE} up -d stationski-db"
 
-                    // Start MySQL service and wait for it to be ready
-                    sh 'docker-compose up -d stationski-db'
+                    // Wait for DB
                     sh '''
-                        echo "Waiting for MySQL to start..."
-                        sleep 30
-
-                        echo "Checking MySQL connection..."
-                        max_attempts=10
-                        counter=0
-                        while [ $counter -lt $max_attempts ]; do
-                            if docker exec stationski-db mysqladmin ping -usarah2025 -psarah2025 --silent; then
-                                echo "MySQL is ready"
+                        for i in {1..10}; do
+                            if docker exec stationski-db mysqladmin ping -uroot -psarah2025 --silent; then
+                                echo "MySQL ready"
                                 break
                             fi
-                            echo "MySQL not ready yet, waiting..."
+                            echo "Waiting for MySQL... ($i/10)"
                             sleep 10
-                            counter=$((counter+1))
                         done
-
-                        if [ $counter -eq $max_attempts ]; then
-                            echo "MySQL did not become ready in time, but continuing anyway"
-                        fi
                     '''
 
-                    // Push Docker image to Nexus registry
-                    withCredentials([usernamePassword(credentialsId: 'nexus', usernameVariable: 'NEXUS_USER', passwordVariable: 'NEXUS_PASS')]) {
-                        sh "docker login ${DOCKER_REGISTRY} -u ${NEXUS_USER} -p ${NEXUS_PASS}"
-                        sh "docker tag stationski:1.0 ${DOCKER_REGISTRY}/stationski:1.0"
-                        sh "docker push ${DOCKER_REGISTRY}/stationski:1.0"
-                    }
-
-                    // Start the full application (all services)
-                    sh 'docker-compose up -d'
+                    // Start remaining services
+                    sh "${DOCKER_COMPOSE} up -d --no-deps stationski-app prometheus grafana sonarqube sonarqube-db"
                 }
             }
         }
@@ -92,13 +81,18 @@ pipeline {
 
     post {
         always {
-            echo 'Pipeline execution completed'
+            echo 'Pipeline completed'
+            cleanWs()
         }
         success {
-            echo 'Pipeline executed successfully'
+            slackSend channel: '#devops',
+                     color: 'good',
+                     message: "SUCCESS: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}"
         }
         failure {
-            echo 'Pipeline execution failed'
+            slackSend channel: '#devops',
+                     color: 'danger',
+                     message: "FAILED: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}"
         }
     }
 }
