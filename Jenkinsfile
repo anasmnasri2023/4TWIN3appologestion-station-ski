@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-    registryCredentials = "nexus"
-    registry = "192.168.70.47:8083"
+        registryCredentials = "nexus"
+        registry = "192.168.70.47:8083"
     }
 
     stages {
@@ -32,16 +32,13 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    def scannerHome = tool 'scanner'
                     withSonarQubeEnv('scanner') {
-                        sh """
-                        ${scannerHome}/bin/sonar-scanner \
-                        -Dsonar.projectKey=instructor-devops \
-                        -Dsonar.sources=. \
-                        -Dsonar.java.binaries=target/classes \
-                        -Dsonar.host.url=${SONAR_HOST_URL} \
-                        -Dsonar.token=${SONAR_AUTH_TOKEN}
-                        """
+                        sh 'mvn sonar:sonar'
+                    }
+
+                    // Wait for SonarQube analysis to complete
+                    timeout(time: 5, unit: 'MINUTES') {
+                        waitForQualityGate abortPipeline: false
                     }
                 }
             }
@@ -64,16 +61,15 @@ pipeline {
             }
         }
 
-
-      stage('Deploy to Nexus') {
-        steps {
-            script {
-                docker.withRegistry("http://${registry}", registryCredentials) {
-                    sh('docker push 192.168.70.47:8083/springbootapp:1.0')
+        stage('Deploy to Nexus') {
+            steps {
+                script {
+                    docker.withRegistry("http://${registry}", registryCredentials) {
+                        sh('docker push 192.168.70.47:8083/springbootapp:1.0')
+                    }
                 }
             }
         }
-      }
 
         stage('Run Application') {
             steps {
@@ -86,10 +82,7 @@ pipeline {
                 }
             }
         }
-
-
     }
-
 
     post {
         always {
