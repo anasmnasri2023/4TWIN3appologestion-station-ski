@@ -110,8 +110,22 @@ pipeline {
                     // Remove all potentially conflicting containers by name
                     sh 'docker rm -f prometheus sonarqube-db stationski-db stationski-app sonarqube grafana || echo "No containers to remove"'
                     
-                    echo "Starting application with docker-compose"
-                    sh 'docker-compose up -d'
+                    // Start the database container first and give it time to initialize
+                    echo "Starting database container separately"
+                    sh 'docker-compose up -d stationski-db'
+                    sh 'sleep 180' // Give the database 3 full minutes to initialize
+                    
+                    // Check database container status
+                    sh 'docker ps -a | grep stationski-db'
+                    
+                    // Start the app container next (depends on database)
+                    echo "Starting application container"
+                    sh 'docker-compose up -d stationski-app'
+                    sh 'sleep 60' // Give the app a full minute to connect to the database
+                    
+                    // Finally start the monitoring containers
+                    echo "Starting remaining monitoring containers"
+                    sh 'docker-compose up -d prometheus grafana sonarqube sonarqube-db'
                     
                     echo "Application should now be running!"
                 }
