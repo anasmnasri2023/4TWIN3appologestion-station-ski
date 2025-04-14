@@ -5,7 +5,7 @@ pipeline {
         registryCredentials = "nexus"
         registry = "192.168.56.100:8083"
         SONAR_HOST_URL = "http://192.168.56.100:9000"
-        SONAR_AUTH_TOKEN = credentials('sonar-token')
+        SONAR_AUTH_TOKEN = credentials('sonar-token') // Utilisation d'un credential Jenkins
     }
 
     stages {
@@ -26,6 +26,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
+                    // Option pour ignorer les tests qui échouent temporairement
                     sh 'mvn test -Dmaven.test.failure.ignore=true'
                 }
             }
@@ -39,16 +40,15 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    def scannerHome = tool 'sonar'
-                    withSonarQubeEnv('sonar') {
+                    def scannerHome = tool 'sonar' // Utilisez le nom exact de votre installation
+                    withSonarQubeEnv('sonar') { // Utilisez le nom exact configuré dans Jenkins
                         sh """
-                            ${scannerHome}/bin/sonar-scanner \\
-                            -Dsonar.projectKey=instructor-devops \\
-                            -Dsonar.sources=. \\
-                            -Dsonar.java.binaries=target/classes \\
-                            -Dsonar.host.url=${SONAR_HOST_URL} \\
-                            -Dsonar.login=${SONAR_AUTH_TOKEN} \\
-                            -Dsonar.java.libraries=target/dependency/*.jar
+                        ${scannerHome}/bin/sonar-scanner \\
+                        -Dsonar.projectKey=instructor-devops \\
+                        -Dsonar.sources=. \\
+                        -Dsonar.java.binaries=target/classes \\
+                        -Dsonar.host.url=${SONAR_HOST_URL} \\
+                        -Dsonar.java.libraries=target/dependency/*.jar
                         """
                     }
                 }
@@ -67,6 +67,7 @@ pipeline {
         stage('Building Docker images') {
             steps {
                 script {
+                    // Utilisation de tags explicites pour les images
                     sh 'docker-compose build'
                     sh "docker tag springbootapp:latest ${registry}/springbootapp:1.0"
                 }
@@ -100,10 +101,8 @@ pipeline {
 
     post {
         always {
-            script {
-                echo 'Pipeline completed'
-                cleanWs()
-            }
+            echo 'Pipeline completed'
+            cleanWs()
         }
         success {
             echo 'Build succeeded!'
@@ -111,9 +110,9 @@ pipeline {
         failure {
             echo 'Build failed!'
             emailext (
-                subject: "🚨 Pipeline échoué : ${currentBuild.fullDisplayName}",
-                body: "Bonjour Anes,\n\nLe pipeline a échoué.\nDétails ici : ${env.BUILD_URL}\n\nMerci de vérifier.\n\n— Jenkins",
-                to: "anes.mnasri@esprit.tn"
+                subject: "Pipeline failed: ${currentBuild.fullDisplayName}",
+                body: "La compilation a échoué. Veuillez vérifier: ${env.BUILD_URL}",
+                to: "admin@example.com"
             )
         }
     }
