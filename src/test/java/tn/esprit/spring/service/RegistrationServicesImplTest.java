@@ -51,15 +51,14 @@ class RegistrationServicesImplTest {
         skier.setNumSkier(1L);
         skier.setDateOfBirth(LocalDate.now().minusYears(20)); // 20 years old
 
-        Instructor instructor = new Instructor();
-        instructor.setNumInstructor(1L);
-
         course = new Course();
         course.setNumCourse(1L);
         course.setTypeCourse(TypeCourse.COLLECTIVE_ADULT);
         course.setSupport(Support.SKI);
-        // Remove the instructor() call and use the correct method from Course entity
-        course.setCourseInstructor(instructor);  // Use the actual method name from your Course entity
+
+        Instructor instructor = new Instructor();
+        instructor.setNumInstructor(1L);
+        course.setInstructor(instructor);
     }
 
     @Test
