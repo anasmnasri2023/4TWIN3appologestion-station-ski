@@ -88,7 +88,7 @@ pipeline {
                 script {
                     sh 'docker stop prometheus || true'
                     sh 'docker rm prometheus || true'
-                    sh 'docker run -d --name prometheus -p 9090:9090 prom/prometheus'
+                    sh 'docker run -d --name prometheus -p 9090:9090 prom/prometheus4'
                 }
             }
         }
