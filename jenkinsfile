@@ -12,6 +12,8 @@ pipeline {
         SONARQUBE_SERVER = 'http://192.168.1.122:9000'
         registryCredentials = 'nexus'
         registry = '192.168.33.10:8083'
+      EMAIL_RECIPIENTS = 'yasmine.attia12@gmail.com'
+        EMAIL_SENDER = 'yasmine.attia12@gmail.com'
     }
 
     stages {
@@ -105,15 +107,54 @@ pipeline {
 
     }
 
+   
     post {
-        always {
-            echo 'Build completed'
-        }
         success {
-            echo 'Build succeeded!'
+            echo "✅ Build successful!"
+            emailext(
+                subject: "✅ [JENKINS] Build #${BUILD_NUMBER} - ${currentBuild.currentResult} - ${env.JOB_NAME}",
+                body: """
+                    <html>
+                    <body>
+                        <h2>✅ Build Successful: ${env.JOB_NAME}</h2>
+                        <p>Build #${BUILD_NUMBER} completed successfully!</p>
+                        <ul>
+                            <li>Tag: ${dockerHubRepo}:${imageTag}</li>
+                            <li>Build URL: <a href="${BUILD_URL}">${BUILD_URL}</a></li>
+                            <li>Duration: ${currentBuild.durationString}</li>
+                        </ul>
+                    </body>
+                    </html>
+                """,
+                to: "${EMAIL_RECIPIENTS}",
+                from: "${EMAIL_SENDER}",
+                mimeType: 'text/html',
+                attachLog: true
+            )
         }
+
         failure {
-            echo 'Build failed!'
+            echo "❌ Build failed!"
+            emailext(
+                subject: "❌ [JENKINS] Build #${BUILD_NUMBER} - ${currentBuild.currentResult} - ${env.JOB_NAME}",
+                body: """
+                    <html>
+                    <body>
+                        <h2>❌ Build Failed: ${env.JOB_NAME}</h2>
+                        <p>Build #${BUILD_NUMBER} has failed!</p>
+                        <ul>
+                            <li>Tag: ${dockerHubRepo}:${imageTag}</li>
+                            <li>Build URL: <a href="${BUILD_URL}">${BUILD_URL}</a></li>
+                            <li>Duration: ${currentBuild.durationString}</li>
+                        </ul>
+                    </body>
+                    </html>
+                """,
+                to: "${EMAIL_RECIPIENTS}",
+                from: "${EMAIL_SENDER}",
+                mimeType: 'text/html',
+                attachLog: true
+            )
         }
     }
 }
