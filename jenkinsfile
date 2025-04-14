@@ -54,7 +54,13 @@ pipeline {
                 sh 'mvn clean package -DskipTests'
             }
         }
-
+      stage('Building images') {
+            steps {
+                script {
+                    sh 'docker-compose build'
+                }
+            }
+        }
         
 
        
