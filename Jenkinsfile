@@ -32,8 +32,15 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    withSonarQubeEnv('scanner') {
-                        sh 'mvn sonar:sonar'
+                    // Use Maven's sonar integration directly without scanner tool
+                    withSonarQubeEnv(credentialsId: 'scanner', installationName: 'scanner') {
+                        sh '''
+                        mvn sonar:sonar \
+                        -Dsonar.projectKey=instructor-devops \
+                        -Dsonar.projectName="Gestion Station Ski" \
+                        -Dsonar.host.url=${SONAR_HOST_URL} \
+                        -Dsonar.login=${SONAR_AUTH_TOKEN}
+                        '''
                     }
 
                     // Wait for SonarQube analysis to complete
