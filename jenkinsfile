@@ -26,30 +26,19 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
-                    steps {
-                        script {
-                            try {
-                                echo "Running JUnit tests using external MySQL..."
-                                sh """
-                                    mvn test \
-                                    -Dspring.datasource.url=jdbc:mysql://192.168.77.129:3306/stationSki?createDatabaseIfNotExist=true \
-                                    -Dspring.datasource.username=root \
-                                    -Dspring.datasource.password= \
-                                    -Dspring.jpa.hibernate.ddl-auto=update
-                                """
-                            } catch (Exception e) {
-                                echo "JUnit tests failed: ${e}"
-                                currentBuild.result = 'UNSTABLE'
-                            }
-                        }
-                    }
-                    post {
-                        always {
-                            junit '**/target/surefire-reports/*.xml'
-                        }
-                    }
+        stage('Test with MySQL Container') {
+            steps {
+                script {
+                    sh 'docker run --name test-mysql -e MYSQL_ROOT_PASSWORD= -e MYSQL_DATABASE=stationSki -p 3306:3306 -d mysql:5.7'
+                    // Wait for MySQL to be ready
+                    sh 'while ! mysqladmin ping -h127.0.0.1 --silent; do sleep 1; done'
+
+                    sh 'mvn test -Dspring.datasource.url=jdbc:mysql://127.0.0.1:3306/stationSki -Dspring.datasource.username=root -Dspring.datasource.password='
+
+                    sh 'docker stop test-mysql && docker rm test-mysql'
                 }
+            }
+        }
 
                 stage('SonarQube Analysis') {
                     steps {
