@@ -29,24 +29,6 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
-            steps {
-                script {
-                    def scannerHome = tool 'sonar'
-                    withSonarQubeEnv('sonar') {
-                        sh """
-                        ${scannerHome}/bin/sonar-scanner \\
-                        -Dsonar.projectKey=instructor-devops \\
-                        -Dsonar.sources=. \\
-                        -Dsonar.java.binaries=target/classes \\
-                        -Dsonar.host.url=http://192.168.33.10:9000 \\
-                        -Dsonar.login=TOKEN_ICI
-                        """
-                    }
-                }
-            }
-        }
-
         stage('Package') {
             steps {
                 script {
