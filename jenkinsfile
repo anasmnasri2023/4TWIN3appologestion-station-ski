@@ -37,17 +37,14 @@ pipeline {
 
         // Uploading Docker images into Nexus Registry
       stage('Deploy to Nexus') {
-                  steps {
-                      script {
-                          // Upload Docker Image to Nexus Registry
-                          docker.withRegistry("http://${registry}", registryCredentials) {
-                              // Push the Docker image with both tags: BUILD_NUMBER and latest
-                              sh "docker push ${registry}/myspringapp:${BUILD_NUMBER}"
-                              sh "docker push ${registry}/myspringapp:latest"
-                          }
+              steps {
+                  script {
+                      docker.withRegistry("http://${registry}", registryCredentials) {
+                          sh('docker push 192.168.33.10:8083/springbootapp:1.0')
                       }
                   }
               }
+          }
 
 
 
