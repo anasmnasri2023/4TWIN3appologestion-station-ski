@@ -45,27 +45,7 @@ pipeline {
             }
         }
 
-        stage('Build and Deploy') {
-            steps {
-                script {
-                    // Build Docker images
-                    sh 'docker-compose build'
-
-                    // Start MySQL and wait for it to be ready
-                    sh 'docker-compose up -d db'
-                    sh '''
-                        while ! docker exec stationski-db mysqladmin ping -uroot -proot --silent; do
-                            echo "Waiting for MySQL..."
-                            sleep 5
-                        done
-                    '''
-
-                    // Start the full application
-                    sh 'docker-compose up -d'
-                }
-            }
-        }
-    }
+       
 
     post {
         always {
