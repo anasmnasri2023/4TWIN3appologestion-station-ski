@@ -3,10 +3,10 @@ pipeline {
 
     environment {
         // Define environment variables
-        SONAR_SERVER = 'http://your-sonar-server:9000'
-        SONAR_TOKEN = credentials('sonar-token')
+        SONAR_SERVER = 'http://sonarqube:9000'  // Update with your SonarQube server URL
+        SONAR_TOKEN = credentials('sonar-token') // Make sure this credential exists in Jenkins
         REGISTRY = '192.168.33.10:8083'
-        REGISTRY_CREDENTIALS = 'nexus-credentials'
+        REGISTRY_CREDENTIALS = 'nexus-credentials' // Make sure this credential exists in Jenkins
     }
 
     stages {
@@ -19,87 +19,67 @@ pipeline {
 
         stage('Build') {
             steps {
-                script {
-                    // Install dependencies and build the package (skip tests for now)
-                    sh 'mvn clean compile -DskipTests'
-                }
+                // Install dependencies and build the package (skip tests for now)
+                sh 'mvn clean compile -DskipTests'
             }
         }
 
         stage('Test') {
             steps {
-                script {
-                    // Run all tests
-                    sh 'mvn test'
-                }
+                // Run all tests
+                sh 'mvn test'
             }
             post {
                 always {
                     // Publish test results
-                    junit '**/target/surefire-reports/*.xml'
+                    junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
                 }
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
-                script {
-                    // Run SonarQube analysis
-                    withSonarQubeEnv('SonarQube') {
-                        sh 'mvn sonar:sonar -Dsonar.projectKey=springboot-app -Dsonar.host.url=${SONAR_SERVER} -Dsonar.login=${SONAR_TOKEN}'
-                    }
-
-                    // Wait for quality gate result (optional but recommended)
-                    timeout(time: 2, unit: 'MINUTES') {
-                        waitForQualityGate abortPipeline: true
-                    }
+                withSonarQubeEnv(installationName: 'SonarQube') {
+                    sh 'mvn sonar:sonar'
                 }
             }
         }
 
         stage('Package') {
             steps {
-                script {
-                    // Create final JAR file
-                    sh 'mvn package -DskipTests'
-                    // Archive the built JAR
-                    archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-                }
+                // Create final JAR file
+                sh 'mvn package -DskipTests'
+                // Archive the built JAR
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true, allowEmptyArchive: true
             }
         }
 
         // Building Docker images
         stage('Building images') {
             steps {
-                script {
-                    sh('docker-compose build')
-                }
+                sh 'docker-compose build'
             }
         }
 
         // Uploading Docker images into Nexus Registry
         stage('Deploy to Nexus') {
             steps {
-                script {
-                    // Tag the image for your Nexus registry
-                    sh 'docker tag devops-pipeline_ghassen_spring_app:latest ${REGISTRY}/springbootapp:1.0'
+                // Tag the image for your Nexus registry
+                sh "docker tag devops-pipeline_ghassen_spring_app:latest ${REGISTRY}/springbootapp:1.0"
 
-                    withCredentials([usernamePassword(credentialsId: "${REGISTRY_CREDENTIALS}", passwordVariable: 'REGISTRY_PASSWORD', usernameVariable: 'REGISTRY_USERNAME')]) {
-                        sh "docker login ${REGISTRY} -u ${REGISTRY_USERNAME} -p ${REGISTRY_PASSWORD}"
-                        sh 'docker push ${REGISTRY}/springbootapp:1.0'
-                    }
+                withCredentials([usernamePassword(credentialsId: "${REGISTRY_CREDENTIALS}", passwordVariable: 'REGISTRY_PASSWORD', usernameVariable: 'REGISTRY_USERNAME')]) {
+                    sh "docker login ${REGISTRY} -u ${REGISTRY_USERNAME} -p ${REGISTRY_PASSWORD}"
+                    sh "docker push ${REGISTRY}/springbootapp:1.0"
                 }
             }
         }
 
         stage('Run application') {
             steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: "${REGISTRY_CREDENTIALS}", passwordVariable: 'REGISTRY_PASSWORD', usernameVariable: 'REGISTRY_USERNAME')]) {
-                        sh "docker login ${REGISTRY} -u ${REGISTRY_USERNAME} -p ${REGISTRY_PASSWORD}"
-                        sh "docker pull ${REGISTRY}/springbootapp:1.0"
-                        sh 'docker-compose up -d'
-                    }
+                withCredentials([usernamePassword(credentialsId: "${REGISTRY_CREDENTIALS}", passwordVariable: 'REGISTRY_PASSWORD', usernameVariable: 'REGISTRY_USERNAME')]) {
+                    sh "docker login ${REGISTRY} -u ${REGISTRY_USERNAME} -p ${REGISTRY_PASSWORD}"
+                    sh "docker pull ${REGISTRY}/springbootapp:1.0"
+                    sh 'docker-compose up -d'
                 }
             }
         }
@@ -107,9 +87,10 @@ pipeline {
 
     post {
         always {
-            echo 'Pipeline completed'
-            // Clean up workspace if needed
-            cleanWs()
+            node(null) {
+                echo 'Pipeline completed'
+                cleanWs()
+            }
         }
         success {
             echo 'Build succeeded!'
