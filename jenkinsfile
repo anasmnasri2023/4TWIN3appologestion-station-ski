@@ -55,13 +55,7 @@ pipeline {
             }
         }
 
-        stage('Building images') {
-            steps {
-                script {
-                    sh 'docker-compose build'
-                }
-            }
-        }
+        
 
        
     }
