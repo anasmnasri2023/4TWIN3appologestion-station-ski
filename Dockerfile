@@ -17,14 +17,10 @@ RUN mvn clean package -DskipTests --no-transfer-progress && rm -rf /root/.m2/rep
 # Étape 2: Créer l'image finale avec OpenJDK pour exécuter le JAR
 FROM openjdk:17-jdk-slim
 
-# Définir le répertoire de travail
 WORKDIR /app
 
-# Copier le fichier JAR généré depuis l'étape précédente
-COPY --from=builder /app/target/*.jar /app/app.jar
+COPY target/*.jar app.jar
 
-# Exposer le port 8089 pour l'application
-EXPOSE 8089
+EXPOSE 8080
 
-# Lancer l'application avec la commande java -jar
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
