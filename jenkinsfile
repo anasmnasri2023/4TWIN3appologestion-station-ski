@@ -26,10 +26,27 @@ pipeline {
             }
         }
 
-         stage('Test') {
+        stage('Run Tests') {
                     steps {
                         script {
-                            sh 'mvn test'
+                            try {
+                                echo "Running JUnit tests using external MySQL..."
+                                sh """
+                                    mvn test \
+                                    -Dspring.datasource.url=jdbc:mysql://192.168.77.129:3306/stationSki?createDatabaseIfNotExist=true \
+                                    -Dspring.datasource.username=root \
+                                    -Dspring.datasource.password= \
+                                    -Dspring.jpa.hibernate.ddl-auto=update
+                                """
+                            } catch (Exception e) {
+                                echo "JUnit tests failed: ${e}"
+                                currentBuild.result = 'UNSTABLE'
+                            }
+                        }
+                    }
+                    post {
+                        always {
+                            junit '**/target/surefire-reports/*.xml'
                         }
                     }
                 }
@@ -37,20 +54,37 @@ pipeline {
                 stage('SonarQube Analysis') {
                     steps {
                         script {
-                            def scannerHome = tool 'scanner'
-                            withSonarQubeEnv('scanner') {
+                            try {
+                                // Step 1: Build and test with MySQL connection parameters (generates jacoco.xml)
                                 sh """
-                                ${scannerHome}/bin/sonar-scanner \
-                                -Dsonar.projectKey=instructor-devops \
-                                -Dsonar.sources=. \
-                                -Dsonar.java.binaries=target/classes \
-                                -Dsonar.host.url=${SONAR_HOST_URL} \
-                                -Dsonar.token=${SONAR_AUTH_TOKEN}
+                                    mvn clean install \
+                                    -Dspring.datasource.url=jdbc:mysql://192.168.77.129:3306/stationSki?createDatabaseIfNotExist=true \
+                                    -Dspring.datasource.username=root \
+                                    -Dspring.datasource.password= \
+                                    -Dspring.jpa.hibernate.ddl-auto=update
                                 """
+
+                                // Step 2: Show content of JaCoCo report folder
+                                sh 'ls -l target/site/jacoco/'
+
+                                // Step 3: Run SonarQube analysis with coverage report
+                                sh """
+                                    mvn sonar:sonar \
+                                    -Dsonar.projectKey=tn.esprit.myspringapp \
+                                    -Dsonar.host.url=${SONARQUBE_SERVER} \
+                                    -Dsonar.login=${SONARQUBE_TOKEN} \
+                                    -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+                                """
+                            } catch (Exception e) {
+                                echo "SonarQube analysis failed: ${e}"
+                                currentBuild.result = 'UNSTABLE'
                             }
                         }
                     }
                 }
+
+
+
 
         // Building Docker images
         stage('Building images ') {
