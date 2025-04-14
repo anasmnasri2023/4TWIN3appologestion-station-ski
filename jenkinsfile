@@ -10,6 +10,8 @@ pipeline {
         JAVA_HOME = '/usr/lib/jvm/java-17-openjdk-amd64'
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
         SONARQUBE_SERVER = 'http://192.168.1.122:9000'
+        registryCredentials = "nexus"
+        registry = "192.168.33.10:8083"
     }
 
     stages {
@@ -53,6 +55,18 @@ pipeline {
         }
         }
         }
+         stage('Deploy to Nexus') {
+         steps {
+             script {
+                 // Tag the image for your Nexus registry
+                 sh 'docker tag devops-pipeline_ghassen_spring_app:latest 192.168.33.10:8083/springbootapp:1.0'
+
+                 docker.withRegistry("http://${registry}", registryCredentials) {
+                     sh 'docker push 192.168.33.10:8083/springbootapp:1.0'
+                 }
+             }
+         }
+     }
        
     }
 
