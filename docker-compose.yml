@@ -9,14 +9,14 @@ services:
       MYSQL_ROOT_PASSWORD: root   # root password here
       MYSQL_DATABASE: stationSki  # database created at startup
     ports:
-      - "3306:3306"
+      - "3305:3306"
     volumes:
       - db_data:/var/lib/mysql
     command: --default-authentication-plugin=mysql_native_password
 
   app:
     build: .
-    image: 192.168.56.100:8083/springbootapp:1.0
+    image: 192.168.33.10:8083/springbootapp:1.0
     container_name: springboot-app
     restart: always
     ports:
