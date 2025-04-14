@@ -37,10 +37,12 @@ pipeline {
                         sh """
                         ${scannerHome}/bin/sonar-scanner \
                         -Dsonar.projectKey=instructor-devops \
-                        -Dsonar.sources=. \
+                         -Dsonar.sources=src/main/java \
+                        -Dsonar.tests=src/test/java \
                         -Dsonar.java.binaries=target/classes \
                         -Dsonar.host.url=${SONAR_HOST_URL} \
                         -Dsonar.token=${SONAR_AUTH_TOKEN}
+                        -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml \
                         """
                     }
                 }
