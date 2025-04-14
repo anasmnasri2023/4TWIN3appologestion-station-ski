@@ -1,42 +1,63 @@
-version: '3.8'
-
 services:
-  db:
+  mysql_db:
     image: mysql:8.0
-    container_name: mysql-db
+    container_name: mysql_db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root   # root password here
-      MYSQL_DATABASE: stationSki  # database created at startup
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "stationSki"
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD: ""
+      MYSQL_ROOT_HOST: "%"
     ports:
       - "3305:3306"
     volumes:
       - db_data:/var/lib/mysql
-    command: --default-authentication-plugin=mysql_native_password
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - spring_network
+    command:
+      --default-authentication-plugin=mysql_native_password
+      --wait_timeout=28800
+      --interactive_timeout=28800
+      --max_connections=1000
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 10s
+      timeout: 20s
+      retries: 15
+      start_period: 60s
 
-  app:
-    build: .
-    image: 192.168.33.10:8083/springbootapp:1.0
-    container_name: springboot-app
-    restart: always
-    ports:
-      - "8089:8089"
+  spring_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: spring_backend
     depends_on:
-      - db
+      - mysql_db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/stationSki?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_db:3306/stationSki?createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root  # Changed from empty to match MySQL root password
+      SPRING_DATASOURCE_PASSWORD: ""
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_SHOW_SQL: "true"
       SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL5InnoDBDialect
-      SERVER_PORT: 8089
-      SERVER_SERVLET_CONTEXT_PATH: /api
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8089/api/actuator/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
+      SPRING_JPA_OPEN_IN_VIEW: "false"
+      LOGGING_LEVEL_ROOT: info
+      LOGGING_PATTERN_CONSOLE: "%d{yyyy-MM-dd HH:mm:ss} - %-5level - %logger{45} - %msg %n"
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK: DEBUG
+      LOGGING_LEVEL_TN_ESPRIT_SPRING: DEBUG
+      TZ: Africa/Tunis
+    ports:
+      - "8087:8087"
+    restart: always
+    networks:
+      - spring_network
+
+networks:
+  spring_network:
+    driver: bridge
 
 volumes:
   db_data:
+    driver: local
