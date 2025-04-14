@@ -35,24 +35,6 @@ pipeline {
             steps {
                 script {
                     echo "SonarQube analysis temporarily disabled due to server issues"
-                    // Uncomment the below code when SonarQube server is fixed
-                    /*
-                    try {
-                        def scannerHome = tool 'scanner'
-                        withSonarQubeEnv('scanner') {
-                            sh """
-                                ${scannerHome}/bin/sonar-scanner \
-                                -Dsonar.projectKey=station-ski \
-                                -Dsonar.sources=. \
-                                -Dsonar.java.binaries=target/classes \
-                                -Dsonar.host.url=http://192.168.70.47:9000
-                            """
-                        }
-                    } catch (Exception e) {
-                        echo "SonarQube analysis failed: ${e.message}"
-                        // Continue pipeline
-                    }
-                    */
                 }
             }
         }
@@ -73,14 +55,6 @@ pipeline {
                     sh 'docker --version || true'
                     sh 'echo "Docker compose version:"'
                     sh 'docker-compose --version || true'
-                    sh 'echo "Docker info:"'
-                    sh 'docker info || true'
-                    sh 'echo "Docker socket:"'
-                    sh 'ls -la /var/run/docker.sock || true'
-                    sh 'echo "Daemon configuration:"'
-                    sh 'cat /etc/docker/daemon.json || true'
-                    sh 'echo "Jenkins user groups:"'
-                    sh 'id jenkins || true'
                 }
             }
         }
@@ -89,15 +63,9 @@ pipeline {
             steps {
                 script {
                     try {
-                        // Simple approach - use sudo without password if configured
-                        sh 'sudo chmod 666 /var/run/docker.sock || echo "Failed to set permissions, continuing anyway"'
-                        
-                        // Build with docker-compose
                         sh 'docker-compose build'
                     } catch (Exception e) {
                         echo "Docker build failed: ${e.message}"
-                        echo "You may need to manually fix Docker permissions on the Jenkins server"
-                        // Display docker-compose file for debugging
                         sh 'cat docker-compose.yml || echo "No docker-compose.yml found"'
                         throw e
                     }
@@ -109,19 +77,22 @@ pipeline {
             steps {
                 script {
                     try {
-                        // Verify Nexus connectivity
+                        echo "Attempting to connect to Nexus registry at ${registry}"
                         sh "curl -m 5 -s -o /dev/null -w '%{http_code}' http://${registry} || echo 'Could not connect to Nexus'"
                         
-                        // Login to Nexus and push image
-                        sh "echo '${NEXUS_PASSWORD}' | docker login http://${registry} -u admin --password-stdin"
-                        // Modify tags to include http:// prefix explicitly
-                        sh "docker tag springbootapp:latest http://${registry}/springbootapp:1.0 || echo 'Failed to tag image'"
-                        sh "docker push http://${registry}/springbootapp:1.0 || echo 'Failed to push image'"
+                        echo "Attempting Docker login with Nexus"
+                        sh "echo '${NEXUS_PASSWORD}' | docker login http://${registry} -u admin --password-stdin || echo 'Nexus login failed - continuing anyway'"
+                        
+                        echo "Tagging Docker image for Nexus"
+                        sh "docker tag springbootapp:latest ${registry}/springbootapp:1.0 || echo 'Failed to tag image'"
+                        
+                        echo "Pushing to Nexus (may fail due to HTTPS issues)"
+                        sh "docker push ${registry}/springbootapp:1.0 || echo 'Failed to push to Nexus - continuing anyway'"
+                        
+                        echo "Nexus deployment attempted - if it failed, we'll continue with local images"
                     } catch (Exception e) {
                         echo "Nexus deployment failed: ${e.message}"
-                        // Display docker images to verify
-                        sh 'docker images | grep springbootapp || echo "No springbootapp image found"'
-                        throw e
+                        echo "Continuing with pipeline using local images"
                     }
                 }
             }
@@ -130,9 +101,16 @@ pipeline {
         stage('Run Application') {
             steps {
                 script {
-                    sh "docker pull ${registry}/springbootapp:1.0 || echo 'Failed to pull image'"
+                    echo "Trying to pull from Nexus (may fail)"
+                    sh "docker pull ${registry}/springbootapp:1.0 || echo 'Failed to pull from Nexus - using local image'"
+                    
+                    echo "Stopping any existing containers"
                     sh 'docker-compose down || echo "No containers to stop"'
+                    
+                    echo "Starting application with docker-compose"
                     sh 'docker-compose up -d'
+                    
+                    echo "Application should now be running!"
                 }
             }
         }
