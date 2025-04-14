@@ -27,13 +27,27 @@ pipeline {
         }
 
 
-        stage('Test') {
-                    steps {
-                        script {
-                            sh 'mvn test'
-                        }
-                    }
-                }
+       stage('Test') {
+           steps {
+               script {
+                   try {
+                       sh 'mvn test'
+                   } catch (Exception e) {
+                       echo "Tests failed, see reports for details"
+                       // Archive test reports
+                       junit 'target/surefire-reports/*.xml'
+                       // Optional: fail the build
+                       error('Tests failed')
+                   }
+               }
+           }
+           post {
+               always {
+                   // Always archive test results
+                   junit 'target/surefire-reports/*.xml'
+               }
+           }
+       }
 
 
 
