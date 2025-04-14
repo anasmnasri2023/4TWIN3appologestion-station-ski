@@ -9,7 +9,7 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD: ""
     ports:
-      - "3305:3306"
+      - "3305:3307"  # Port de l'hôte 3305 mappé au port du conteneur 3307
     networks:
       - spring_network
 
@@ -21,7 +21,7 @@ services:
     depends_on:
       - mysql_db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_db:3306/stationSki?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_db:3307/stationSki?createDatabaseIfNotExist=true  # Le port 3307 est toujours celui du conteneur
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: ""
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
