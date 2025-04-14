@@ -100,8 +100,8 @@ pipeline {
 
     post {
         always {
-            echo 'Pipeline completed'
             script {
+                echo 'Pipeline completed'
                 cleanWs()
             }
         }
