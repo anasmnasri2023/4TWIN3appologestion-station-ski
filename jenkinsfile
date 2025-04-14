@@ -65,7 +65,7 @@ pipeline {
         }
 
 
-    stage('Deploy to Nexus') {
+      stage('Deploy to Nexus') {
         steps {
             script {
                 docker.withRegistry("http://${registry}", registryCredentials) {
@@ -73,8 +73,19 @@ pipeline {
                 }
             }
         }
+      }
     }
-    }
+        stage('Run Application') {
+            steps {
+                script {
+                    docker.withRegistry("http://${registry}", registryCredentials) {
+                        sh "docker pull ${registry}/springbootapp:1.0"
+                        sh 'docker-compose up -d'
+                    }
+                }
+            }
+        }
+
 
 
     post {
