@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-        maven 'M2_HOME'  // Ensure this matches the name of your Maven installation in Jenkins
-        jdk 'JAVA_HOME'   // Ensure this matches the name of your JDK installation in Jenkins
+        maven 'M2_HOME'   // Make sure this matches the name of your Maven installation in Jenkins
+        jdk 'JAVA_HOME'    // Make sure this matches the name of your JDK installation in Jenkins
     }
 
     environment {
@@ -42,6 +42,14 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'mvn clean package -DskipTests'
+            }
+        }
+
+        stage('Building images') {
+            steps {
+                script {
+                    sh 'docker-compose build'
+                }
             }
         }
     }
