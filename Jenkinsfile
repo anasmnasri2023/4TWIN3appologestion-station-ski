@@ -107,8 +107,8 @@ pipeline {
                     echo "Stopping any existing containers"
                     sh 'docker-compose down || echo "No containers to stop"'
                     
-                    // Remove any conflicting containers by name
-                    sh 'docker rm -f prometheus sonarqube-db stationski-db || echo "No containers to remove"'
+                    // Remove all potentially conflicting containers by name
+                    sh 'docker rm -f prometheus sonarqube-db stationski-db stationski-app sonarqube grafana || echo "No containers to remove"'
                     
                     echo "Starting application with docker-compose"
                     sh 'docker-compose up -d'
