@@ -1,4 +1,3 @@
-
 services:
   db:
     image: mysql:8.0
@@ -39,5 +38,21 @@ services:
       timeout: 10s
       retries: 5
 
+  sonarqube:
+    image: sonarqube:latest
+    container_name: sonarqube
+    restart: always
+    ports:
+      - "9000:9000"
+    environment:
+      - SONARQUBE_JDBC_URL=jdbc:mysql://db:3306/sonar
+      - SONARQUBE_JDBC_USERNAME=root
+      - SONARQUBE_JDBC_PASSWORD=root
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+
 volumes:
   db_data:
+  sonarqube_data:
+  sonarqube_extensions:
