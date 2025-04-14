@@ -9,7 +9,7 @@ pipeline {
     environment {
         JAVA_HOME = '/usr/lib/jvm/java-17-openjdk-amd64'
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
-        SONARQUBE_SERVER = 'http://192.168.1.122:9000'
+        SONARQUBE_SERVER = 'http://192.168.1.122:9001'
         registryCredentials = 'nexus'
         registry = '192.168.33.10:8083'
     }
