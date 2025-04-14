@@ -32,7 +32,7 @@ pipeline {
             steps {
                 script {
                     def scannerHome = tool 'scanner'  // Ensure the scanner tool is correctly configured in Jenkins
-                    withSonarQubeEnv('devopsYasminee') {  // Make sure 'scanner' matches the SonarQube installation in Jenkins
+                    withSonarQubeEnv('scanner') {  // Make sure 'scanner' matches the SonarQube installation in Jenkins
                         sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
