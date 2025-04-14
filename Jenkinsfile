@@ -3,7 +3,7 @@ pipeline {
 
     environment {
     registryCredentials = "nexus"
-    registry = "192.168.70.47:8083"
+    registry = "192.168.56.100:8083"
     }
 
     stages {
@@ -24,7 +24,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    sh 'mvn test'
+                   sh 'mvn test'
                 }
             }
         }
@@ -37,10 +37,12 @@ pipeline {
                         sh """
                         ${scannerHome}/bin/sonar-scanner \
                         -Dsonar.projectKey=instructor-devops \
-                        -Dsonar.sources=. \
+                         -Dsonar.sources=src/main/java \
+                        -Dsonar.tests=src/test/java \
                         -Dsonar.java.binaries=target/classes \
                         -Dsonar.host.url=${SONAR_HOST_URL} \
-                        -Dsonar.token=${SONAR_AUTH_TOKEN}
+                        -Dsonar.token=${SONAR_AUTH_TOKEN} \
+                        -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
                         """
                     }
                 }
@@ -69,7 +71,7 @@ pipeline {
         steps {
             script {
                 docker.withRegistry("http://${registry}", registryCredentials) {
-                    sh('docker push 192.168.70.47:8083/springbootapp:1.0')
+                    sh('docker push 192.168.56.100:8083/springbootapp:1.0')
                 }
             }
         }
@@ -80,8 +82,8 @@ pipeline {
                 script {
                     docker.withRegistry("http://${registry}", registryCredentials) {
                         sh "docker pull ${registry}/springbootapp:1.0"
-                        sh 'docker-compose down'   // Stop and remove old containers
-                        sh 'docker-compose up -d'   // Run fresh
+                        sh 'docker-compose down --remove-orphans || true'
+                        sh 'docker-compose up -d --force-recreate' // Run fresh
                     }
                 }
             }
