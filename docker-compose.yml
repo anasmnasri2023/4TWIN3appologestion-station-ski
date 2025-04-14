@@ -18,7 +18,7 @@ services:
 
   app:
     build: .
-    image: 192.168.33.10:8083/springbootapp:1.0
+    image: 192.168.56.100:8083/springbootapp:1.0
     container_name: springboot-app
     restart: always
     ports:

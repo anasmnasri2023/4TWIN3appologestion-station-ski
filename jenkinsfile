@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+    registryCredentials = "nexus"
+    registry = "192.168.56.100:8083"
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -59,6 +64,17 @@ pipeline {
             }
         }
     }
+
+    stage('Deploy to Nexus') {
+        steps {
+            script {
+                docker.withRegistry("http://${registry}", registryCredentials) {
+                    sh('docker push 192.168.56.100:8083/springbootapp:1.0')
+                }
+            }
+        }
+    }
+
 
     post {
         always {
