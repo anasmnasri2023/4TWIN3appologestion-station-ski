@@ -114,8 +114,9 @@ pipeline {
 
                         // Login to Nexus and push image
                         sh "echo '${NEXUS_PASSWORD}' | docker login http://${registry} -u admin --password-stdin"
-                        sh "docker tag springbootapp:latest ${registry}/springbootapp:1.0 || echo 'Failed to tag image'"
-                        sh "docker push ${registry}/springbootapp:1.0"
+                        // Modify tags to include http:// prefix explicitly
+                        sh "docker tag springbootapp:latest http://${registry}/springbootapp:1.0 || echo 'Failed to tag image'"
+                        sh "docker push http://${registry}/springbootapp:1.0 || echo 'Failed to push image'"
                     } catch (Exception e) {
                         echo "Nexus deployment failed: ${e.message}"
                         // Display docker images to verify
