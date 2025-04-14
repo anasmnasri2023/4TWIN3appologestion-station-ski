@@ -46,13 +46,7 @@ pipeline {
         }
 
         // Nouveau nom du stage ici
-        stage('Building Docker images') {
-            steps {
-                script {
-                    sh 'docker-compose build'
-                }
-            }
-        }
+       
     }
 
     post {
