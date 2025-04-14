@@ -83,7 +83,25 @@ pipeline {
              }
          }
      }
+     stage('Run Prometheus') {
+            steps {
+                script {
+                    sh 'docker stop prometheus || true'
+                    sh 'docker rm prometheus || true'
+                    sh 'docker run -d --name prometheus -p 9090:9090 prom/prometheus'
+                }
+            }
+        }
 
+        stage('Run Grafana') {
+            steps {
+                script {
+                    sh 'docker stop grafana || true'
+                    sh 'docker rm grafana || true'
+                    sh 'docker run -d --name grafana -p 3000:3000 grafana/grafana'
+                }
+            }
+        }
 
     }
 
