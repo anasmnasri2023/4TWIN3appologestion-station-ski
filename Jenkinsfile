@@ -6,6 +6,7 @@ pipeline {
         IMAGE_NAME = "stationski"
         TAG = "${BUILD_NUMBER}"
         DOCKER_COMPOSE = "docker-compose -f docker-compose.yml"
+        SKIP_TESTS = "false"  // Set to "true" to skip tests
     }
 
     stages {
@@ -19,12 +20,23 @@ pipeline {
 
         stage('Build & Test') {
             steps {
-                sh 'mvn clean package'
-                junit '**/target/surefire-reports/*.xml'
+                script {
+                    if (env.SKIP_TESTS == "true") {
+                        echo "Skipping tests as requested"
+                        sh 'mvn clean package -DskipTests'
+                    } else {
+                        echo "Running tests"
+                        sh 'mvn clean package'
+                        junit '**/target/surefire-reports/*.xml'
+                    }
+                }
             }
         }
 
         stage('SonarQube Analysis') {
+            when {
+                expression { env.SKIP_TESTS == "false" }
+            }
             steps {
                 withSonarQubeEnv('sonar') {
                     sh 'mvn sonar:sonar'

@@ -7,25 +7,35 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: "sarah2025"
-      MYSQL_DATABASE: stationSki
+      MYSQL_DATABASE: "stationSki"
+      MYSQL_USER: "sarah"
+      MYSQL_PASSWORD: "sarah2025"
+      MYSQL_ROOT_HOST: "%"
     ports:
       - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
     networks:
       - stationski-net
+    command:
+      --default-authentication-plugin=mysql_native_password
+      --wait_timeout=28800
+      --interactive_timeout=28800
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-psarah2025"]
-      interval: 20s
-      timeout: 20s
-      retries: 40
-      start_period: 180s
+      interval: 5s
+      timeout: 10s
+      retries: 20
+      start_period: 30s
 
   stationski-app:
-    build: .
-    image: stationski-app:latest  # Fixed image tag
+    build:
+      context: .
+      args:
+        - SPRING_PROFILES_ACTIVE=dev
+    image: stationski-app:latest
     container_name: stationski-app
-    restart: always
+    restart: unless-stopped
     ports:
       - "8089:8089"
     depends_on:
@@ -34,12 +44,21 @@ services:
     networks:
       - stationski-net
     environment:
-      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL: jdbc:mysql://stationski-db:3306/stationSki?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&connectTimeout=30000&socketTimeout=60000
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: sarah2025
+      SPRING_JPA_HIBERNATE_DDL-AUTO: update
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8089/api/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
 
   prometheus:
     image: prom/prometheus
     container_name: prometheus
-    restart: always
+    restart: unless-stopped
     ports:
       - "9090:9090"
     volumes:
@@ -50,18 +69,20 @@ services:
   grafana:
     image: grafana/grafana
     container_name: grafana
-    restart: always
+    restart: unless-stopped
     ports:
       - "3000:3000"
     volumes:
       - grafana_data:/var/lib/grafana
     networks:
       - stationski-net
+    depends_on:
+      - prometheus
 
   sonarqube:
     image: sonarqube:community
     container_name: sonarqube
-    restart: always
+    restart: unless-stopped
     ports:
       - "9000:9000"
     networks:
@@ -70,7 +91,7 @@ services:
       - SONAR_JDBC_URL=jdbc:postgresql://sonarqube-db:5432/sonar
       - SONAR_JDBC_USERNAME=sonar
       - SONAR_JDBC_PASSWORD=sonar
-      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true  # Important for startup
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
     volumes:
       - sonarqube_data:/opt/sonarqube/data
       - sonarqube_logs:/opt/sonarqube/logs
@@ -81,7 +102,7 @@ services:
   sonarqube-db:
     image: postgres:13
     container_name: sonarqube-db
-    restart: always
+    restart: unless-stopped
     networks:
       - stationski-net
     environment:
