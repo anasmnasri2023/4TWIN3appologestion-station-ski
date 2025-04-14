@@ -1,6 +1,13 @@
 pipeline {
     agent any
 
+    environment {
+        registryCredentials = "nexus"
+        registry = "192.168.56.100:8083"
+        SONAR_HOST_URL = "http://192.168.56.100:9000"
+        SONAR_AUTH_TOKEN = "TON_TOKEN_ICI"
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -24,6 +31,24 @@ pipeline {
             }
         }
 
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    def scannerHome = tool 'scanner'
+                    withSonarQubeEnv('scanner') {
+                        sh """
+                        ${scannerHome}/bin/sonar-scanner \\
+                        -Dsonar.projectKey=instructor-devops \\
+                        -Dsonar.sources=. \\
+                        -Dsonar.java.binaries=target/classes \\
+                        -Dsonar.host.url=${SONAR_HOST_URL} \\
+                        -Dsonar.token=${SONAR_AUTH_TOKEN}
+                        """
+                    }
+                }
+            }
+        }
+
         stage('Package') {
             steps {
                 script {
@@ -40,6 +65,28 @@ pipeline {
                 }
             }
         }
+
+        stage('Deploy to Nexus') {
+            steps {
+                script {
+                    docker.withRegistry("http://${registry}", registryCredentials) {
+                        sh 'docker push 192.168.56.100:8083/springbootapp:1.0'
+                    }
+                }
+            }
+        }
+
+        stage('Run Application') {
+            steps {
+                script {
+                    docker.withRegistry("http://${registry}", registryCredentials) {
+                        sh "docker pull ${registry}/springbootapp:1.0"
+                        sh 'docker-compose down'
+                        sh 'docker-compose up -d'
+                    }
+                }
+            }
+        }
     }
 
     post {
@@ -52,6 +99,4 @@ pipeline {
         }
         failure {
             echo 'Build failed!'
-        }
-    }
-}
+  
