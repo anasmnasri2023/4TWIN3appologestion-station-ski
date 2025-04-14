@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        registryCredentials = "nexus"
+        registry = "192.168.33.10:8083"
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -24,23 +29,23 @@ pipeline {
             }
         }
 
-       stage('SonarQube Analysis') {
-           steps {
-               script {
-                   def scannerHome = tool 'sonar' // Changer 'scanner' en 'sonar' pour correspondre au nom de l'installation
-                   withSonarQubeEnv('sonar') { // Changer aussi ici pour correspondre
-                       sh """
-                       ${scannerHome}/bin/sonar-scanner \\
-                       -Dsonar.projectKey=instructor-devops \\
-                       -Dsonar.sources=. \\
-                       -Dsonar.java.binaries=target/classes \\
-                       -Dsonar.host.url=http://192.168.33.10:9000 \\ // URL explicite plutôt que variable
-                       -Dsonar.login=TOKEN_ICI // Remplacer par votre token réel ou utiliser un credential Jenkins
-                       """
-                   }
-               }
-           }
-       }
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    def scannerHome = tool 'sonar'
+                    withSonarQubeEnv('sonar') {
+                        sh """
+                        ${scannerHome}/bin/sonar-scanner \\
+                        -Dsonar.projectKey=instructor-devops \\
+                        -Dsonar.sources=. \\
+                        -Dsonar.java.binaries=target/classes \\
+                        -Dsonar.host.url=http://192.168.33.10:9000 \\
+                        -Dsonar.login=TOKEN_ICI
+                        """
+                    }
+                }
+            }
+        }
 
         stage('Package') {
             steps {
@@ -55,6 +60,17 @@ pipeline {
             steps {
                 script {
                     sh 'docker-compose build'
+                }
+            }
+        }
+
+        // Uploading Docker images into Nexus Registry
+        stage('Deploy to Nexus') {
+            steps {
+                script {
+                    docker.withRegistry("http://${registry}", registryCredentials) {
+                        sh 'docker push $registry/nodemongoapp:5.0'
+                    }
                 }
             }
         }
