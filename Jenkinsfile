@@ -69,7 +69,7 @@ pipeline {
         steps {
             script {
                 docker.withRegistry("http://${registry}", registryCredentials) {
-                    sh('docker push 192.168.56.100:8083/springbootapp:1.0')
+                    sh('docker push 192.168.70.47:8083/springbootapp:1.0')
                 }
             }
         }
