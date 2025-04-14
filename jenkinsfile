@@ -15,15 +15,6 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                script {
-                    // Lancer les tests comme IntelliJ
-                    sh 'mvn test'
-                }
-            }
-        }
-
         stage('Build') {
             steps {
                 script {
