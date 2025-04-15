@@ -97,4 +97,4 @@ networks:
   spring_network:
     driver: bridge
   monitoring_network:
-    driver: bridge
+    driver: bridge  
