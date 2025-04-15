@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-  # Your existing services
   mysql_db:
     image: mysql:8.0
     container_name: mysql_db
@@ -15,7 +14,7 @@ services:
       - "3306:3306"
     networks:
       - spring_network
-      - monitoring_network  # Add to monitoring network
+      - monitoring_network
 
   spring_app:
     build:
@@ -33,15 +32,15 @@ services:
       - "8087:8087"
     networks:
       - spring_network
-      - monitoring_network  # Add to monitoring network
+      - monitoring_network
 
-  # New services
+  # Modified Nexus service (ports changed to avoid conflict with nexus_old)
   nexus:
     image: sonatype/nexus3
-    container_name: nexus
+    container_name: nexus_new  # Renamed to avoid name conflict
     restart: always
     ports:
-      - "8081:8081"
+      - "8091:8081"  # Changed host port from 8081 to 8091
     volumes:
       - nexus_data:/nexus-data
     networks:
@@ -50,8 +49,6 @@ services:
   sonarqube:
     image: sonarqube:lts-community
     container_name: sonarqube
-    depends_on:
-      - mysql_db  # Only if SonarQube uses MySQL
     environment:
       SONAR_JDBC_URL: jdbc:mysql://mysql_db:3306/sonar?useSSL=false
       SONAR_JDBC_USERNAME: root
