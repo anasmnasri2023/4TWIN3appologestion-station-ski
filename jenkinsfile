@@ -11,7 +11,7 @@ pipeline {
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
         SONARQUBE_SERVER = 'http://192.168.1.122:9000'
         registryCredentials = 'nexus'
-        registry = '192.168.33.10:8087'
+        registry = '192.168.33.10:8083'
         IMAGE_NAME = 'springbootapp'
         IMAGE_TAG = '1.0'
         EMAIL_RECIPIENTS = 'yasmine.attia12@gmail.com'
