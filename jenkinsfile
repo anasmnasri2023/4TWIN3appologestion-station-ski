@@ -15,13 +15,17 @@ pipeline {
             }
         }
 
+
+
         stage('SonarQube Analysis') {
-                    steps {
-                        withSonarQubeEnv('SonarQube') {
-                            sh 'mvn sonar:sonar -Dsonar.projectKey=stationSki -Dsonar.host.url=$SONARQUBE_SERVER -Dsonar.login=$SONARQUBE_TOKEN'
-                        }
-                    }
+            steps {
+                withSonarQubeEnv('scanner') {
+                    sh 'mvn sonar:sonar -Dsonar.projectKey=stationSki'
                 }
+            }
+        }
+
+
 
         stage('Test') {
             steps {
