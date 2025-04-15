@@ -36,20 +36,20 @@ services:
   # Modified Nexus service (ports changed to avoid conflict with nexus_old)
 
 
-  sonarqube:
-    image: sonarqube:lts-community
-    container_name: sonarqube
-    environment:
-      SONAR_JDBC_URL: jdbc:mysql://mysql_db:3306/sonar?useSSL=false
-      SONAR_JDBC_USERNAME: root
-      SONAR_JDBC_PASSWORD: ""
-    ports:
-      - "9000:9000"
-    volumes:
-      - sonarqube_data:/opt/sonarqube/data
-      - sonarqube_extensions:/opt/sonarqube/extensions
-    networks:
-      - spring_network
+    #sonarqube:
+    # image: sonarqube:lts-community
+    # container_name: sonarqube
+      #  environment:
+      #    SONAR_JDBC_URL: jdbc:mysql://mysql_db:3306/sonar?useSSL=false
+      #    SONAR_JDBC_USERNAME: root
+    #   SONAR_JDBC_PASSWORD: ""
+      #  ports:
+      # - "9000:9000"
+      # volumes:
+      # - sonarqube_data:/opt/sonarqube/data
+      # - sonarqube_extensions:/opt/sonarqube/extensions
+      #  networks:
+    #  - spring_network
 
   prometheus:
     image: prom/prometheus
