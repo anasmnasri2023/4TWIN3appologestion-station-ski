@@ -1,4 +1,4 @@
-version: '3.8'
+# docker-compose.yml
 
 services:
   mysql_db:
@@ -8,38 +8,40 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: stationSki
-      MYSQL_USER: root
-      MYSQL_PASSWORD: ""
+    volumes:
+      - db_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - spring_network
 
+  spring_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: springbootapp:1.0
+    container_name: spring_backend
+    restart: always
+    ports:
+      - "8089:8089"
+    depends_on:
+      - mysql_db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_db:3306/stationSki?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL5InnoDBDialect
+      SERVER_PORT: 8089
+      SERVER_SERVLET_CONTEXT_PATH: /api
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8089/api/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     networks:
       - spring_network
       - monitoring_network
-
-
-
-
-
-
-
-
-
-  # Modified Nexus service (ports changed to avoid conflict with nexus_old)
-
-
-    #sonarqube:
-    # image: sonarqube:lts-community
-    # container_name: sonarqube
-      #  environment:
-      #    SONAR_JDBC_URL: jdbc:mysql://mysql_db:3306/sonar?useSSL=false
-      #    SONAR_JDBC_USERNAME: root
-    #   SONAR_JDBC_PASSWORD: ""
-      #  ports:
-      # - "9000:9000"
-      # volumes:
-      # - sonarqube_data:/opt/sonarqube/data
-      # - sonarqube_extensions:/opt/sonarqube/extensions
-      #  networks:
-    #  - spring_network
 
   prometheus:
     image: prom/prometheus
@@ -68,6 +70,7 @@ services:
       - monitoring_network
 
 volumes:
+  db_data:
   nexus_data:
   sonarqube_data:
   sonarqube_extensions:
