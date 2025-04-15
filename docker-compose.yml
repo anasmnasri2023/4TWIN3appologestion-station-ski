@@ -35,16 +35,7 @@ services:
       - monitoring_network
 
   # Modified Nexus service (ports changed to avoid conflict with nexus_old)
-  nexus:
-    image: sonatype/nexus3
-    container_name: nexus_new  # Renamed to avoid name conflict
-    restart: always
-    ports:
-      - "8091:8081"  # Changed host port from 8081 to 8091
-    volumes:
-      - nexus_data:/nexus-data
-    networks:
-      - spring_network
+
 
   sonarqube:
     image: sonarqube:lts-community
@@ -97,4 +88,4 @@ networks:
   spring_network:
     driver: bridge
   monitoring_network:
-    driver: bridge  
+    driver: bridge
