@@ -43,26 +43,18 @@ pipeline {
 
 
         // Uploading Docker images into Nexus Registry
+            stage('Deploy to Nexus') {
+                steps {
+                    script {
+                        // Tag the image for your Nexus registry
+                        sh 'docker tag devops-pipeline_ghassen_spring_app:latest 192.168.33.10:8083/springbootapp:1.0'
 
-      stage('Deploy to Nexus') {
-          steps {
-              script {
-                  def imageName = "springbootapp"
-                  def imageTag = "1.0"
-                  def nexusUrl = "localhost:8081"  // ✅ Utilisation de localhost ici
-
-                  // Tag de l'image Docker
-                  sh "docker tag devops-pipeline_ghassen_spring_app:latest ${nexusUrl}/${imageName}:${imageTag}"
-
-                  // Push vers Nexus
-                  docker.withRegistry("http://${nexusUrl}", registryCredentials) {
-                      sh "docker push ${nexusUrl}/${imageName}:${imageTag}"
-                  }
-              }
-          }
-      }
-
-
+                        docker.withRegistry("http://${registry}", registryCredentials) {
+                            sh 'docker push 192.168.33.10:8083/springbootapp:1.0'
+                        }
+                    }
+                }
+            }
 
 
             stage('Run application') {
