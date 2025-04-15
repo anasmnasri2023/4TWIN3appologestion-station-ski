@@ -49,18 +49,19 @@ pipeline {
               script {
                   def imageName = "springbootapp"
                   def imageTag = "1.0"
-                  def nexusUrl = "192.168.33.10:8081"  // ✅ le bon port ici
+                  def nexusUrl = "localhost:8081"  // ✅ Utilisation de localhost ici
 
-                  // Tag l'image Docker pour Nexus
+                  // Tag de l'image Docker
                   sh "docker tag devops-pipeline_ghassen_spring_app:latest ${nexusUrl}/${imageName}:${imageTag}"
 
-                  // Connexion et push vers Nexus
+                  // Push vers Nexus
                   docker.withRegistry("http://${nexusUrl}", registryCredentials) {
                       sh "docker push ${nexusUrl}/${imageName}:${imageTag}"
                   }
               }
           }
       }
+
 
 
 
