@@ -20,10 +20,16 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('scanner') {
-                    sh 'mvn sonar:sonar -Dsonar.projectKey=stationSki'
+                    sh 'mvn clean install'
+                    sh '''
+                        mvn sonar:sonar \
+                        -Dsonar.projectKey=stationSki \
+                        -Dsonar.java.binaries=target/classes
+                    '''
                 }
             }
         }
+
 
 
 
