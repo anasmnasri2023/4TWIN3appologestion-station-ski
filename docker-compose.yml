@@ -58,7 +58,7 @@ services:
     container_name: nexus
     restart: always
     ports:
-      - "8082:8081"
+      - "8081:8081"
       - "8083:8083"
     volumes:
       - nexus_data:/nexus-data
