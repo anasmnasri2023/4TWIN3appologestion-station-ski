@@ -49,7 +49,7 @@ services:
       LOGGING_LEVEL_TN_ESPRIT_SPRING: DEBUG
       TZ: Africa/Tunis
     ports:
-      - "8087:8087"
+      - "8087:8083"
     restart: always
     networks:
       - spring_network
