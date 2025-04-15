@@ -6,188 +6,92 @@ pipeline {
         SONARQUBE_TOKEN = credentials('scanner')
         registryCredentials = "nexus"
         registry = "192.168.33.10:8083"
-        MAVEN_OPTS = "-Xmx2g -Xms1g -XX:MaxRAMPercentage=70.0"
     }
 
     stages {
-        /* Stage 1: Fast Checkout with Lightweight Clone */
         stage('Checkout') {
             steps {
-                checkout([
-                    $class: 'GitSCM',
-                    branches: [[name: '*/main']],
-                    extensions: [[
-                        $class: 'CloneOption',
-                        depth: 1,
-                        shallow: true
-                    ]],
-                    userRemoteConfigs: [[
-                        url: 'https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git'
-                    ]]
-                ])
+                checkout scm
             }
         }
 
-        /* Stage 2: Parallel Build and Test */
-        stage('Build & Test') {
-            parallel {
-                /* Parallel Job 1: Fast Maven Build with Caching */
-                stage('Maven Build') {
-                    steps {
-                        sh '''
-                            mvn -B -q clean install -DskipTests \
-                            -Dmaven.repo.local=/tmp/m2repo \
-                            -Dspring.datasource.url=jdbc:mysql://192.168.33.10:3306/stationSki \
-                            -Dspring.datasource.username=root \
-                            -Dspring.datasource.password= \
-                            -Dspring.jpa.hibernate.ddl-auto=update
-                        '''
+        stage('Test') {
+            steps {
+                script {
+                    // Lancer les tests comme IntelliJ
+                    sh 'mvn test'
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    // Construire sans relancer les tests
+                    sh 'mvn clean package -DskipTests'
+                }
+            }
+        }
+
+        stage('Building images') {
+            steps {
+                script {
+                    sh 'docker-compose build'
+                }
+            }
+        }
+
+
+        // Uploading Docker images into Nexus Registry
+            stage('Deploy to Nexus') {
+                steps {
+                    script {
+                        // Tag the image for your Nexus registry
+                        sh 'docker tag devops-pipeline_ghassen_spring_app:latest 192.168.33.10:8083/springbootapp:1.0'
+
+                        docker.withRegistry("http://${registry}", registryCredentials) {
+                            sh 'docker push 192.168.33.10:8083/springbootapp:1.0'
+                        }
                     }
                 }
+            }
 
-                /* Parallel Job 2: Optimized Test Execution */
-                stage('Run Tests') {
+
+            stage('Run application') {
+                steps {
+                    script {
+                        docker.withRegistry("http://${registry}", registryCredentials) {
+                            sh "docker pull ${registry}/springbootapp:1.0"
+                            sh 'docker-compose up -d'
+                        }
+                    }
+                }
+            }
+
+
+
+        stage('Package') {
                     steps {
                         script {
-                            try {
-                                sh '''
-                                    mvn -B -q test \
-                                    -Dspring.datasource.url=jdbc:mysql://192.168.33.10:3306/stationSki \
-                                    -Dspring.datasource.username=root \
-                                    -Dspring.datasource.password= \
-                                    -Dspring.jpa.hibernate.ddl-auto=update
-                                '''
-                            } catch (Exception e) {
-                                echo "Tests failed (marked unstable): ${e}"
-                                currentBuild.result = 'UNSTABLE'
-                            }
-                        }
-                    }
-                    post {
-                        always {
-                            junit '**/target/surefire-reports/*.xml'
+                            // Create final JAR file
+                            sh 'mvn package -DskipTests'
+                            // Archive the built JAR
+                            archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
                         }
                     }
                 }
             }
-        }
-
-        /* Stage 3: SonarQube Analysis with Cached Build */
-        stage('SonarQube Analysis') {
-            when {
-                branch 'main'
-            }
-            steps {
-                script {
-                    try {
-                        sh '''
-                            mvn -B -q sonar:sonar \
-                            -Dsonar.projectKey=tn.esprit.myspringapp \
-                            -Dsonar.host.url=${SONARQUBE_SERVER} \
-                            -Dsonar.login=${SONARQUBE_TOKEN} \
-                            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
-                        '''
-                    } catch (Exception e) {
-                        echo "SonarQube failed: ${e}"
-                        currentBuild.result = 'UNSTABLE'
-                    }
-                }
-            }
-        }
-
-        /* Stage 4: Efficient Packaging */
-        stage('Package Application') {
-            steps {
-                sh 'mvn -B -q package -DskipTests'
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-            }
-        }
-
-        /* Stage 5: Docker Build with Layer Caching */
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    docker.build("${registry}/myspringapp:${BUILD_NUMBER}", "--build-arg MAVEN_OPTS='${MAVEN_OPTS}' .")
-                    docker.withRegistry("http://${registry}", registryCredentials) {
-                        docker.image("${registry}/myspringapp:${BUILD_NUMBER}").push()
-                        docker.image("${registry}/myspringapp:${BUILD_NUMBER}").push('latest')
-                    }
-                }
-            }
-        }
-
-        /* Stage 6: Smart Deployment */
-        stage('Deploy & Run') {
-            steps {
-                script {
-                    try {
-                        // Stop existing container if running
-                        sh 'docker stop myspringapp-container || true'
-                        sh 'docker rm myspringapp-container || true'
-
-                        // Run new container with health check
-                        sh """
-                            docker run -d \
-                            --name myspringapp-container \
-                            -p 8089:8089 \
-                            -e SPRING_DATASOURCE_URL=jdbc:mysql://192.168.33.10:3306/stationSki \
-                            -e SPRING_DATASOURCE_USERNAME=root \
-                            -e SPRING_DATASOURCE_PASSWORD= \
-                            -e SPRING_JPA_HIBERNATE_DDL_AUTO=update \
-                            ${registry}/myspringapp:${BUILD_NUMBER}
-                        """
-
-                        // Verify deployment
-                        timeout(time: 2, unit: 'MINUTES') {
-                            waitUntil {
-                                def status = sh(
-                                    script: 'curl -s -o /dev/null -w "%{http_code}" http://localhost:8089/api/health',
-                                    returnStdout: true
-                                ).trim()
-                                return (status == "200")
-                            }
-                        }
-                    } catch (Exception e) {
-                        echo "Deployment failed: ${e}"
-                        sh 'docker logs myspringapp-container || true'
-                        error("Deployment failed")
-                    }
-                }
-            }
-            post {
-                success {
-                    echo """
-                    ==========================================
-                    DEPLOYMENT SUCCESSFUL!
-                    Application URL: http://${env.JENKINS_URL}/myspringapp-container
-                    Swagger UI: http://localhost:8089/api/swagger-ui.html
-                    ==========================================
-                    """
-                }
-            }
-        }
-    }
 
     post {
         always {
-            /* Clean workspace but preserve Maven cache */
-            cleanWs(
-                cleanWhenAborted: true,
-                cleanWhenFailure: true,
-                cleanWhenNotBuilt: true,
-                cleanWhenUnstable: true,
-                deleteDirs: true,
-                patterns: [[pattern: '.gitignore', type: 'INCLUDE'],
-                          [pattern: '.mvn/**', type: 'EXCLUDE'],
-                          [pattern: '/tmp/m2repo/**', type: 'EXCLUDE']]
-            )
-
-            /* Send notifications */
-            emailext (
-                subject: "Jenkins Build ${currentBuild.result}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                body: """Check console output at ${env.BUILD_URL}""",
-                recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-            )
+            echo 'Pipeline completed'
+            cleanWs()
+        }
+        success {
+            echo 'Build succeeded!'
+        }
+        failure {
+            echo 'Build failed!'
         }
     }
 }

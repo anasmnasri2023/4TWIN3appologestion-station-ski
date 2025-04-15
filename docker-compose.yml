@@ -1,45 +1,103 @@
-version: "3.8"
+version: '3.8'
 
 services:
-  mysqldb:
-    image: mysql:5.7
-    restart: unless-stopped
+  # Your existing services
+  mysql_db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ""
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: stationSki
-      SPRING_APPLICATION_JSON: '{
-        "spring.datasource.url": "jdbc:mysql://mysqldb:3306/stationSki?createDatabaseIfNotExist=true",
-        "spring.datasource.username": "root",
-        "spring.datasource.password": null,
-        "spring.jpa.properties.hibernate.dialect": "org.hibernate.dialect.MySQL5InnoDBDialect",
-        "spring.jpa.hibernate.ddl-auto": "update"
-      }'
+      MYSQL_USER: root
+      MYSQL_PASSWORD: ""
     ports:
       - "3306:3306"
+    networks:
+      - spring_network
+      - monitoring_network  # Add to monitoring network
+
+  spring_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: spring_backend
+    depends_on:
+      - mysql_db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_db:3306/stationSki?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ""
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    ports:
+      - "8087:8087"
+    networks:
+      - spring_network
+      - monitoring_network  # Add to monitoring network
+
+  # New services
+  nexus:
+    image: sonatype/nexus3
+    container_name: nexus
+    restart: always
+    ports:
+      - "8081:8081"
     volumes:
-      - db:/var/lib/mysql
+      - nexus_data:/nexus-data
+    networks:
+      - spring_network
+
+  sonarqube:
+    image: sonarqube:lts-community
+    container_name: sonarqube
+    depends_on:
+      - mysql_db  # Only if SonarQube uses MySQL
+    environment:
+      SONAR_JDBC_URL: jdbc:mysql://mysql_db:3306/sonar?useSSL=false
+      SONAR_JDBC_USERNAME: root
+      SONAR_JDBC_PASSWORD: ""
+    ports:
+      - "9000:9000"
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+    networks:
+      - spring_network
 
   prometheus:
-    image: prom/prometheus:latest
+    image: prom/prometheus
     container_name: prometheus
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    depends_on:
+      - spring_app
+    networks:
+      - monitoring_network
 
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana
     container_name: grafana
-    environment:
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=admin
     ports:
       - "3000:3000"
     volumes:
-      - grafana-storage:/var/lib/grafana
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    networks:
+      - monitoring_network
 
 volumes:
-  db:
-  grafana-storage:
+  nexus_data:
+  sonarqube_data:
+  sonarqube_extensions:
+  grafana_data:
 
+networks:
+  spring_network:
+    driver: bridge
+  monitoring_network:
+    driver: bridge
