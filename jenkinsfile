@@ -78,12 +78,35 @@ pipeline {
             }
         }
 
+        stage('Nettoyage Docker avant déploiement') {
+            steps {
+                script {
+                    sh '''
+                        echo "📦 Suppression des conteneurs existants..."
+                        docker-compose down -v --remove-orphans
+
+                        echo "🧼 Suppression de l'image si existante..."
+                        docker rmi ${registry}/${IMAGE_NAME}:${IMAGE_TAG} || true
+
+                        echo "🧹 Suppression des volumes anonymes..."
+                        docker volume prune -f
+                    '''
+                }
+            }
+        }
+
         stage('Déploiement de l\'application') {
             steps {
                 script {
                     docker.withRegistry("http://${registry}", registryCredentials) {
-                        sh "docker pull ${registry}/${IMAGE_NAME}:${IMAGE_TAG}"
-                        sh "docker-compose up -d"
+                        sh '''
+                            echo "📥 Pull de la dernière image..."
+                            docker pull ${registry}/${IMAGE_NAME}:${IMAGE_TAG}
+
+                            echo "🔨 Rebuild propre et relance..."
+                            docker-compose build --no-cache
+                            docker-compose up -d
+                        '''
                     }
                 }
             }
@@ -108,7 +131,6 @@ pipeline {
                 }
             }
         }
-
     }
 
     post {
