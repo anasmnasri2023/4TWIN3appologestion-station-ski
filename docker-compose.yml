@@ -10,8 +10,8 @@ services:
       MYSQL_DATABASE: stationSki
       MYSQL_USER: root
       MYSQL_PASSWORD: ""
-    ports:
-      - "3306:3306"
+    #  ports:
+    # - "3306:3306"
     networks:
       - spring_network
       - monitoring_network
@@ -28,8 +28,8 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: ""
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
-        #ports:
-      # - "8087:8087"
+    ports:
+      - "8087:8087"
     networks:
       - spring_network
       - monitoring_network
