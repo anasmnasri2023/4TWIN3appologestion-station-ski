@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-        maven 'M2_HOME'    // Nom configuré dans Jenkins > Global Tool Configuration
-        jdk 'JAVA_HOME'    // Nom configuré dans Jenkins > Global Tool Configuration
+        maven 'M2_HOME'
+        jdk 'JAVA_HOME'
     }
 
     environment {
@@ -12,11 +12,12 @@ pipeline {
         SONARQUBE_SERVER = 'http://192.168.1.122:9000'
         registryCredentials = 'nexus'
         registry = '192.168.33.10:8083'
-      EMAIL_RECIPIENTS = 'yasmine.attia12@gmail.com'
+        EMAIL_RECIPIENTS = 'yasmine.attia12@gmail.com'
         EMAIL_SENDER = 'yasmine.attia12@gmail.com'
     }
 
     stages {
+
         stage('Debug Environment') {
             steps {
                 sh 'echo "JAVA_HOME: $JAVA_HOME"'
@@ -34,11 +35,11 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
+        stage('Analyse SonarQube') {
             steps {
                 script {
-                    def scannerHome = tool 'scanner' // Ce nom doit correspondre à celui défini dans Jenkins
-                    withSonarQubeEnv('scanner') {     // Ce nom doit correspondre à l'installation SonarQube déclarée
+                    def scannerHome = tool 'scanner'
+                    withSonarQubeEnv('scanner') {
                         sh """
                             ${scannerHome}/bin/sonar-scanner \
                             -Dsonar.projectKey=station-ski \
@@ -51,49 +52,39 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build Maven') {
             steps {
                 sh 'mvn clean package -DskipTests'
             }
         }
-      
-        
-      stage('Building images') {
+
+        stage('Docker Build') {
             steps {
                 script {
                     sh 'docker-compose build'
                 }
             }
         }
-       stage('Deploy to Nexus') {
-        steps {
-            script {
-                docker.withRegistry("http://${registry}", registryCredentials) {
-                    sh('docker push 192.168.33.10:8083/springbootapp:1.0')
+
+        stage('Push Image to Nexus') {
+            steps {
+                script {
+                    docker.withRegistry("http://${registry}", registryCredentials) {
+                        sh 'docker push 192.168.33.10:8083/springbootapp:1.0'
+                    }
                 }
             }
         }
-      }
 
-        stage('Run application') {
-         steps {
-             script {
-                 docker.withRegistry("http://${registry}", registryCredentials) {
-                     sh "docker pull ${registry}/springbootapp:1.0"
-                     sh 'docker-compose up -d'
-                 }
-             }
-         }
-     }
-     stage('Run Prometheus') {
-    steps {
-        script {
-            sh 'docker stop prometheuss5 || true'
-            sh 'docker rm prometheuss5 || true'
-            sh 'docker run -d --name prometheuss5 -p 9090:9090 prom/prometheus'
+        stage('Run Prometheus') {
+            steps {
+                script {
+                    sh 'docker stop prometheuss5 || true'
+                    sh 'docker rm prometheuss5 || true'
+                    sh 'docker run -d --name prometheuss5 -p 9090:9090 prom/prometheus'
+                }
+            }
         }
-    }
-}
 
         stage('Run Grafana') {
             steps {
@@ -105,24 +96,33 @@ pipeline {
             }
         }
 
+        stage('Run Application') {
+            steps {
+                script {
+                    docker.withRegistry("http://${registry}", registryCredentials) {
+                        sh "docker pull ${registry}/springbootapp:1.0"
+                        sh 'docker-compose up -d'
+                    }
+                }
+            }
+        }
     }
 
-   
-   post {
+    post {
         success {
             mail(
-                to: 'yasmine.attia12@gmail.com',
+                to: "${EMAIL_RECIPIENTS}",
                 subject: '✅ Succès - Pipeline Jenkins',
-                body: 'Salut! MadameYesmine ,\n\nLe pipeline Jenkins s\'est exécuté avec succès.\n\nCordialement,\nTon Jenkins 😎'
+                body: 'Salut! Madame Yesmine,\n\nLe pipeline Jenkins s\'est exécuté avec succès.\n\nCordialement,\nTon Jenkins 😎'
             )
         }
+
         failure {
             mail(
-                to: 'yasmine.attia12@gmail.com',
+                to: "${EMAIL_RECIPIENTS}",
                 subject: '❌ Échec - Pipeline Jenkins',
-                body: 'Salut! Madame yesmine,\n\nLe pipeline Jenkins a échoué. Va voir ce qui s\'est passé dans les logs.\n\nBon courage !'
+                body: 'Salut! Madame Yesmine,\n\nLe pipeline Jenkins a échoué. Va voir ce qui s\'est passé dans les logs.\n\nBon courage !'
             )
         }
     }
-
 }
