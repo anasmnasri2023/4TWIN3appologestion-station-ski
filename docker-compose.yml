@@ -1,3 +1,4 @@
+
 services:
   db:
     image: mysql:8.0
@@ -52,7 +53,21 @@ services:
       - sonarqube_data:/opt/sonarqube/data
       - sonarqube_extensions:/opt/sonarqube/extensions
 
+  nexus:
+    image: sonatype/nexus3
+    container_name: nexus
+    restart: always
+    ports:
+      - "8082:8081"
+      - "8083:8083"
+    volumes:
+      - nexus_data:/nexus-data
+    environment:
+      - NEXUS_CONTEXT_PATH=/nexus
+      - NEXUS_REQUIRES_AUTH=false
+
 volumes:
   db_data:
   sonarqube_data:
   sonarqube_extensions:
+  nexus_data:
