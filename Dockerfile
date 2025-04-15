@@ -25,7 +25,7 @@ WORKDIR /app
 COPY --from=builder /app/target/*.jar /app/app.jar
 
 # Exposer le port 8089 pour l'application
-EXPOSE 8083
+EXPOSE 8087
 
 # Lancer l'application avec la commande java -jar
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
