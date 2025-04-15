@@ -12,6 +12,8 @@ pipeline {
         SONARQUBE_SERVER = 'http://192.168.1.122:9000'
         registryCredentials = 'nexus'
         registry = '192.168.33.10:8083'
+        IMAGE_NAME = 'springbootapp'
+        IMAGE_TAG = '1.0'
         EMAIL_RECIPIENTS = 'yasmine.attia12@gmail.com'
         EMAIL_SENDER = 'yasmine.attia12@gmail.com'
     }
@@ -52,25 +54,36 @@ pipeline {
             }
         }
 
-        stage('Build Maven') {
+        stage('Build avec Maven') {
             steps {
                 sh 'mvn clean package -DskipTests'
             }
         }
 
-        stage('Docker Build') {
+        stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker-compose build'
+                    sh "docker build -t ${registry}/${IMAGE_NAME}:${IMAGE_TAG} ."
                 }
             }
         }
 
-        stage('Push Image to Nexus') {
+        stage('Push vers Nexus') {
             steps {
                 script {
                     docker.withRegistry("http://${registry}", registryCredentials) {
-                        sh 'docker push 192.168.33.10:8083/springbootapp:1.0'
+                        sh "docker push ${registry}/${IMAGE_NAME}:${IMAGE_TAG}"
+                    }
+                }
+            }
+        }
+
+        stage('Déploiement de l\'application') {
+            steps {
+                script {
+                    docker.withRegistry("http://${registry}", registryCredentials) {
+                        sh "docker pull ${registry}/${IMAGE_NAME}:${IMAGE_TAG}"
+                        sh "docker-compose up -d"
                     }
                 }
             }
@@ -96,16 +109,6 @@ pipeline {
             }
         }
 
-        stage('Run Application') {
-            steps {
-                script {
-                    docker.withRegistry("http://${registry}", registryCredentials) {
-                        sh "docker pull ${registry}/springbootapp:1.0"
-                        sh 'docker-compose up -d'
-                    }
-                }
-            }
-        }
     }
 
     post {
@@ -116,7 +119,6 @@ pipeline {
                 body: 'Salut! Madame Yesmine,\n\nLe pipeline Jenkins s\'est exécuté avec succès.\n\nCordialement,\nTon Jenkins 😎'
             )
         }
-
         failure {
             mail(
                 to: "${EMAIL_RECIPIENTS}",
