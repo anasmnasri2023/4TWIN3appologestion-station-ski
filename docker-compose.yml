@@ -10,8 +10,7 @@ services:
       MYSQL_DATABASE: stationSki
       MYSQL_USER: root
       MYSQL_PASSWORD: ""
-    #  ports:
-    # - "3306:3306"
+
     networks:
       - spring_network
       - monitoring_network
