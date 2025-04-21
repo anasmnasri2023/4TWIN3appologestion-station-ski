@@ -7,7 +7,6 @@ WORKDIR /app
 
 # Copier seulement les fichiers nécessaires pour optimiser le cache Docker
 COPY pom.xml ./
-RUN mvn dependency:go-offline --no-transfer-progress
 
 # Copier le reste des fichiers du projet
 COPY src/ ./src/
