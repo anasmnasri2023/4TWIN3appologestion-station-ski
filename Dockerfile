@@ -3,7 +3,10 @@ FROM maven:3.8.8-eclipse-temurin-17 AS builder
 
 WORKDIR /app
 
+
 COPY pom.xml ./
+RUN apt-get update && apt-get install -y curl && curl https://repo.maven.apache.org/maven2
+
 RUN mvn dependency:go-offline --no-transfer-progress
 
 COPY src ./src
