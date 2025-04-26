@@ -31,8 +31,14 @@ public class Course implements Serializable {
 	Float price;
 	int timeSlot;
 
+	@ManyToOne
+	Instructor instructor;
+
 	@JsonIgnore
 	@OneToMany(mappedBy= "course")
 	Set<Registration> registrations;
 
+	public void setCourseInstructor(Instructor instructor) {
+		this.instructor = instructor;
+	}
 }
