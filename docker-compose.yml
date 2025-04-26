@@ -1,0 +1,89 @@
+version: "3.8"
+
+services:
+  mysql_db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: stationSki
+    volumes:
+      - db_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - spring_network
+
+  spring_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: springbootapp:1.0
+    container_name: spring_backend
+    restart: always
+    ports:
+      - "8089:8089"
+    depends_on:
+      - mysql_db
+    environment:
+      SPRING_DATASOURCE_URL: >
+        jdbc:mysql://mysql_db:3306/stationSki
+        ?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT:
+        org.hibernate.dialect.MySQL5InnoDBDialect
+      SERVER_PORT: 8089
+      SERVER_SERVLET_CONTEXT_PATH: /api
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8089/api/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - spring_network
+      - monitoring_network
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    depends_on:
+      - spring_app
+    networks:
+      - monitoring_network
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    networks:
+      - monitoring_network
+
+volumes:
+  db_data:
+  nexus_data:
+  sonarqube_data:
+  sonarqube_extensions:
+  grafana_data:
+
+networks:
+  spring_network:
+    driver: bridge
+  monitoring_network:
+    driver: bridge

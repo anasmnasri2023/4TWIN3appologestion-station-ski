@@ -1,0 +1,152 @@
+pipeline {
+    agent any
+
+    tools {
+        maven 'M2_HOME'
+        jdk 'JAVA_HOME'
+    }
+
+    environment {
+        JAVA_HOME = '/usr/lib/jvm/java-17-openjdk-amd64'
+        PATH = "${JAVA_HOME}/bin:${env.PATH}"
+        SONARQUBE_SERVER = 'http://192.168.33.10:9000'
+        registryCredentials = 'nexus'
+        registry = '192.168.33.10:8083'
+        IMAGE_NAME = 'springbootapp'
+        IMAGE_TAG = '1.0'
+        EMAIL_RECIPIENTS = 'yasmine.attia12@gmail.com'
+        EMAIL_SENDER = 'yasmine.attia12@gmail.com'
+    }
+
+    stages {
+
+        stage('Debug Environment') {
+            steps {
+                sh 'echo "JAVA_HOME: $JAVA_HOME"'
+                sh 'echo "PATH: $PATH"'
+                sh 'java -version || true'
+                sh 'mvn -version || true'
+                sh 'ls -la $JAVA_HOME/bin || true'
+            }
+        }
+
+        stage('Cloner le dépôt') {
+            steps {
+                git branch: 'YasmineAttia-4twin3-Apollo',
+                    url: 'https://github.com/anasmnasri2023/4TWIN3appologestion-station-ski.git'
+            }
+        }
+
+        stage('Analyse SonarQube') {
+            steps {
+                script {
+                    def scannerHome = tool 'scanner'
+                    withSonarQubeEnv('scanner') {
+                        sh """
+                            ${scannerHome}/bin/sonar-scanner \
+                            -Dsonar.projectKey=station-ski \
+                            -Dsonar.sources=. \
+                            -Dsonar.java.binaries=target/classes \
+                            -Dsonar.host.url=${SONARQUBE_SERVER}
+                        """
+                    }
+                }
+            }
+        }
+
+        stage('Build avec Maven') {
+            steps {
+                sh 'mvn clean package -DskipTests'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh "docker build -t ${registry}/${IMAGE_NAME}:${IMAGE_TAG} ."
+                }
+            }
+        }
+
+        stage('Push vers Nexus') {
+            steps {
+                script {
+                    docker.withRegistry("http://${registry}", registryCredentials) {
+                        sh "docker push ${registry}/${IMAGE_NAME}:${IMAGE_TAG}"
+                    }
+                }
+            }
+        }
+
+        stage('Nettoyage Docker avant déploiement') {
+            steps {
+                script {
+                    sh '''
+                        echo "📦 Suppression des conteneurs existants..."
+                        docker-compose down -v --remove-orphans
+
+                        echo "🧼 Suppression de l'image si existante..."
+                        docker rmi ${registry}/${IMAGE_NAME}:${IMAGE_TAG} || true
+
+                        echo "🧹 Suppression des volumes anonymes..."
+                        docker volume prune -f
+                    '''
+                }
+            }
+        }
+
+        stage('Déploiement de l\'application') {
+            steps {
+                script {
+                    docker.withRegistry("http://${registry}", registryCredentials) {
+                        sh '''
+                            echo "📥 Pull de la dernière image..."
+                            docker pull ${registry}/${IMAGE_NAME}:${IMAGE_TAG}
+
+                            echo "🔨 Rebuild propre et relance..."
+                            docker-compose build --no-cache
+                            docker-compose up -d
+                        '''
+                    }
+                }
+            }
+        }
+
+        stage('Run Prometheus') {
+            steps {
+                script {
+                    sh 'docker stop prometheuss5 || true'
+                    sh 'docker rm prometheuss5 || true'
+                    sh 'docker run -d --name prometheuss5 -p 9090:9090 prom/prometheus'
+                }
+            }
+        }
+
+        stage('Run Grafana') {
+            steps {
+                script {
+                    sh 'docker stop grafana || true'
+                    sh 'docker rm grafana || true'
+                    sh 'docker run -d --name grafana -p 3000:3000 grafana/grafana'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            mail(
+                to: "${EMAIL_RECIPIENTS}",
+                subject: '✅ Succès - Pipeline Jenkins',
+                body: 'Salut! Madame Yesmine,\n\nLe pipeline Jenkins s\'est exécuté avec succès.\n\nCordialement,\nTon Jenkins 😎'
+            )
+        }
+        failure {
+            mail(
+                to: "${EMAIL_RECIPIENTS}",
+                subject: '❌ Échec - Pipeline Jenkins',
+                body: 'Salut! Madame Yesmine,\n\nLe pipeline Jenkins a échoué. Va voir ce qui s\'est passé dans les logs.\n\nBon courage !'
+            )
+        }
+    }
+}
