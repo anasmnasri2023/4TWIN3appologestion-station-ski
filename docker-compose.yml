@@ -1,0 +1,73 @@
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: stationSki
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: springbootapp:1.0
+    container_name: springboot-app
+    restart: always
+    ports:
+      - "8089:8089"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/stationSki?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL5InnoDBDialect
+      SERVER_PORT: 8089
+      SERVER_SERVLET_CONTEXT_PATH: /api
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8089/api/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  sonarqube:
+    image: sonarqube:latest
+    container_name: sonarqube
+    restart: always
+    ports:
+      - "9000:9000"
+    environment:
+      - SONARQUBE_JDBC_URL=jdbc:mysql://db:3306/sonar
+      - SONARQUBE_JDBC_USERNAME=root
+      - SONARQUBE_JDBC_PASSWORD=root
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+
+  nexus:
+    image: sonatype/nexus3
+    container_name: nexus
+    restart: always
+    ports:
+      - "8081:8081"
+      - "8083:8083"
+    volumes:
+      - nexus_data:/nexus-data
+    environment:
+      - NEXUS_CONTEXT_PATH=/nexus
+      - NEXUS_REQUIRES_AUTH=false
+
+volumes:
+  db_data:
+  sonarqube_data:
+  sonarqube_extensions:
+  nexus_data:
